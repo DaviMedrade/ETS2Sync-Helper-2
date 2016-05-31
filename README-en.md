@@ -1,5 +1,6 @@
 # ETS2Sync Helper
 [VERSÃO EM PORTUGUÊS](README.md)
+
 [LICENSE](LICENSE.md)
 
 This app synchronizes the job list on Euro Truck Simulator 2, in order to make it easier to organize a convoy on Multiplayer.

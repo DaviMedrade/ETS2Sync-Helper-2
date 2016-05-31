@@ -1,5 +1,6 @@
 # ETS2Sync Helper
 [ENGLISH VERSION](README-en.md)
+
 [LICENSE](LICENSE.md)
 
 Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para facilitar a organização de comboios no Multiplayer.
