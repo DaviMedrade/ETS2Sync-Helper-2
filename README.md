@@ -1,5 +1,6 @@
 # ETS2Sync Helper
 [ENGLISH VERSION](README-en.md)
+[LICENSE](LICENSE.md)
 
 Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para facilitar a organização de comboios no Multiplayer.
 
@@ -42,6 +43,7 @@ https://github.com/davidsantos-br/ets2sync_helper/issues
 **Nota:** Esta etapa não é necessária para sincronizar as cargas.
 
 Se você deseja executar o programa a partir do código-fonte e/ou colaborar com o desenvolvimento:
+
 1. Clone o repositório.
 2. Instale o Ruby 2.2.x (http://rubyinstaller.org/).
 3. Instale a gem `qtbindings`:
