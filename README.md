@@ -35,6 +35,34 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 
 	Se as cargas não estão todas com o mesmo tempo para expirar, isso significa que a sincronização falhou. Normalmente isso acontece porque a pessoa esqueceu de carregar o save depois de sincronizar, ou que o save que foi carregado não é o que foi sincronizado (confira o perfil e o save selecionados no programa).
 
+## Como Sincronizar (Avançado)
+Manter o formato do save em 3 enquanto você dirige pode causar lags quando o jogo cria um autosave, o que seria especialmente problemático se você estiver em um comboio. Infelizmente, o formato padrão do jogo é um formato binário que o programa não consegue alterar para fazer a sincronização.
+
+Mudar o formato do save pelo arquivo de configuração não é eficiente porque exigiria sair do jogo e entrar novamente cada vez que ele for alterado. Felizmente o formato pode ser alterado pelo console do jogo.
+
+### Como ativar o console
+Pule esta etapa se o console já está ativado no seu jogo.
+
+1. Certifique-se de que o jogo está fechado. Editar arquivos de configuração do jogo com o jogo em execução não funciona.
+2. Na pasta do jogo em `Documentos`, abra o arquivo `config.cfg` em um editor de texto (e.g. Bloco de Notas).
+3. Localize as opções `g_developer` e `g_console` e mude o valor de ambas para `"1"`.
+
+Pronto. No jogo, para abrir e fechar o console pressione o apóstrofo (à esquerda da tecla 1). Para executar um comando no console, abra o console, digite o comando, e pressione Enter.
+
+### Mudando o formato do save em tempo real
+1. Antes de criar o save para sincronizar, execute o comando abaixo no console do jogo:
+
+	```
+	g_save_format 3
+	```
+2. Salve o jogo normalmente.
+3. Uma vez criado o save, execute o comando abaixo no console do jogo:
+
+	```
+	g_save_format 0
+	```
+4. Faça a sincronização normalmente usando o programa. O programa exibirá a mensagem “Formato do Save incorreto”, mas você pode ignorá-la.
+
 ## Bugs/Problemas
 Se você encontrar um problema no programa, informe no link abaixo:
 

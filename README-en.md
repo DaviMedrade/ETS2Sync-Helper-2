@@ -35,6 +35,34 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 
 	If the jobs don't all have the same expiration time, that means that the sync failed. Usually when that happens it's because the person forgot to load the save after syncing, or that the save that was loaded is not the one that was synced (check the profile and the save that are selected in the app).
 
+## How To Sync (Advanced)
+Keeping the save format set as 3 while you drive may cause lags when the game creates an autosave, which can be especially troublesome if you are in a convoy. Unfortunately, the default format used by the game is a binary format that the app can't change to do the job sync.
+
+Changing the save format via the config file is not efficient because it would require closing and re-opening the game every time it's changed. Fortunately, the format can be changed using the developer console.
+
+### How to enable the console
+Skip this step if the console is already enabled in your game.
+
+1. Make sure that the game is closed. Editing game config files with the game running won't work.
+2. In the game's folder in `Documents`, open the file `config.cfg` in a text editor (e.g. Notepad).
+3. Find the options `g_developer` and `g_console` and change the value of both to `"1"`.
+
+That's it. In the game, to open and close the console press the grave key (to the left of the 1 key). To execute a command in the console, open the console, type the command, and press Enter.
+
+### Changing the save format in real time
+1. Before creating the save you'll use to sync, execute the command below in the developer console:
+
+	```
+	g_save_format 3
+	```
+2. Save the game as usual.
+3. Once the save is created, , execute the command below in the developer console:
+
+	```
+	g_save_format 0
+	```
+4. Do the sync as usual using the app. The app will show the message “Formato do Save incorreto”, but you can ignore it.
+
 ## Bugs/Issues
 If you find a problem in the app, report it on the link below:
 
