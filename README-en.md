@@ -76,10 +76,12 @@ If you wish to run the app from its source code and/or help with its development
 1. Clone the repo.
 2. Install Ruby 2.2.x (http://rubyinstaller.org/).
 3. Install the gem `qtbindings`:
+
 	```
 	gem install qtbindings
 	```
 4. If you wish to build a binary, install the gem `ocra`:
+
 	```
 	gem install ocra
 	```
@@ -92,6 +94,7 @@ A bug in the gem `qtbindings` related to encodings prevents the program from run
 
 #### Gem `qtbindings`
 In the file `lib/Qt4.rb`, replace lines 12-17 with the lines below:
+
 ```ruby
 ruby_version = RUBY_VERSION.split('.')[0..1].join('.').encode("UTF-8")
 if windows
@@ -102,7 +105,8 @@ require "#{ruby_version}/qtruby4"
 ```
 
 #### Gem `qtbindings-qt` (`qtbindings` dependency):
-In the file `qtlib/qtbindings-qt.rb`, replace line 8 for the one below:
+In the file `qtlib/qtbindings-qt.rb`, replace line 8 with the one below:
+
 ```ruby
 ENV['PATH'] = (File.join(File.dirname(__FILE__).encode("UTF-8"), '../qtbin') + ';' + File.join(File.dirname(__FILE__).encode("UTF-8"), '../qtbin/plugins') + ';' + ENV['PATH'].encode("UTF-8")).encode(ENV['PATH'].encoding)
 ```
