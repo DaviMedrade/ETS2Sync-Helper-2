@@ -43,6 +43,7 @@ https://github.com/davidsantos-br/ets2sync_helper/issues
 **Note:** This step is not necessary to sync the jobs.
 
 If you wish to run the app from its source code and/or help with its development:
+
 1. Clone the repo.
 2. Install Ruby 2.2.x (http://rubyinstaller.org/).
 3. Install the gem `qtbindings`:
