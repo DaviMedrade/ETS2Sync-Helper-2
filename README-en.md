@@ -6,6 +6,11 @@ This app synchronizes the job list on Euro Truck Simulator 2, in order to make i
 ## Download
 http://files.dsantosdev.com/ets2sync_helper.zip
 
+## Video Tutorial
+Portuguese audio, English subtitles (CC).
+
+https://www.youtube.com/watch?v=WKLHSnt_5H4
+
 ## How To Sync
 1. In the game, create a save (“Save & Load” → “Save Game”, type a name, click “Save”).
 2. Press Alt+Tab to minimize the game.

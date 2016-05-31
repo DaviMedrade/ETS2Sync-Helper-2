@@ -6,6 +6,11 @@ Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para fa
 ## Download
 http://files.dsantosdev.com/ets2sync_helper.zip
 
+## Vídeo Tutorial
+Áudio em português, legendas em inglês (CC).
+
+https://www.youtube.com/watch?v=WKLHSnt_5H4
+
 ## Como Sincronizar
 1. No jogo, crie um save (vá em “Salvar e Carregar” → “Salvar Jogo”, digite um nome, clique em “Salvar”).
 2. Pressione Alt+Tab para minimizar o jogo.
