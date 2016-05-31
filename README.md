@@ -66,7 +66,7 @@ Pronto. No jogo, para abrir e fechar o console pressione o apóstrofo (à esquer
 ## Bugs/Problemas
 Se você encontrar um problema no programa, informe no link abaixo:
 
-https://github.com/davidsantos-br/ets2sync_helper/issues
+https://github.com/davidsantos-br/ETS2Sync-Helper-2/issues
 
 ## Desenvolvimento
 **Nota:** Esta etapa não é necessária para sincronizar as cargas.

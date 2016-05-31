@@ -66,7 +66,7 @@ That's it. In the game, to open and close the console press the grave key (to th
 ## Bugs/Issues
 If you find a problem in the app, report it on the link below:
 
-https://github.com/davidsantos-br/ets2sync_helper/issues
+https://github.com/davidsantos-br/ETS2Sync-Helper-2/issues
 
 ## Development
 **Note:** This step is not necessary to sync the jobs.
