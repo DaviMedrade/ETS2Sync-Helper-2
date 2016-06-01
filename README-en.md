@@ -6,7 +6,11 @@
 This app synchronizes the job list on Euro Truck Simulator 2, in order to make it easier to organize a convoy on Multiplayer.
 
 ## Download
-http://files.dsantosdev.com/ets2sync_helper.zip
+English:
+http://files.dsantosdev.com/ets2sync_helper_en.zip
+
+Brazilian Portuguese:
+http://files.dsantosdev.com/ets2sync_helper_pt-BR.zip
 
 ## Video Tutorial
 Portuguese audio, English subtitles (CC).
@@ -16,20 +20,20 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 ## How To Sync
 1. In the game, create a save (“Save & Load” → “Save Game”, type a name, click “Save”).
 2. Press Alt+Tab to minimize the game.
-3. Open the app (or click “Atualizar” if it was already open).
+3. Open the app (or click “Reload” if it was already open).
 4. If there are any messages in red:
-	* “Formato do Save incorreto”:
+	* “Wrong Save Format”:
 		1. Exit the game. This step won't work if the game is running.
-		2. In the app, click “Corrigir”.
+		2. In the app, click “Fix”.
 		3. Confirm the messages.
 		4. Open the game again.
 		5. Go back to step 1.
-	* “Nenhum save encontrado”/“*x* saves, nenhum é compatível” (*x* being any number):
-		1. Click “Atualizar”.
+	* “No saves found”/“*x* saves, none are compatible” (*x* being any number):
+		1. Click “Reload”.
 		2. Make sure that the correct profile is selected.
 		3. Go back to step 1.
-5. If there are no messages in red, click “Sincronizar”.
-6. Wait until the message “Sincronização concluída” appears.
+5. If there are no messages in red, click “Sync”.
+6. Wait until the message “Sync complete” appears.
 7. Go back to the game. Load the save that was created on step 1 (“Save & Load” → “Load Game”).
 8. In the “Freight Market”, check that the field “Offer expires in” has the same value for all jobs (and that it's about 500 hours). If it is, the sync was successful.
 
@@ -61,7 +65,7 @@ That's it. In the game, to open and close the console press the grave key (to th
 	```
 	g_save_format 0
 	```
-4. Do the sync as usual using the app. The app will show the message “Formato do Save incorreto”, but you can ignore it.
+4. Do the sync as usual using the app. The app will show the message “Wrong Save Format”, but you can ignore it.
 
 ## Bugs/Issues
 If you find a problem in the app, report it on the link below:
@@ -85,8 +89,12 @@ If you wish to run the app from its source code and/or help with its development
 	```
 	gem install ocra
 	```
-5. Run `verbose.bat` or `no_console.bat` to execute the app.
-6. To generate a binary, run `build_exe.bat`.
+5. Run `verbose.bat` or `no_console.bat` passing the language as a parameter to execute the app. E.g.:
+
+	```
+	verbose en
+	```
+6. To generate a binary, run `build_exe.bat` passing the language as a parameter.
 
 ### Gem `qtbindings` bug
 

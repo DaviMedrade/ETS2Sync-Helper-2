@@ -6,7 +6,11 @@
 Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para facilitar a organização de comboios no Multiplayer.
 
 ## Download
-http://files.dsantosdev.com/ets2sync_helper.zip
+Português do Brasil:
+http://files.dsantosdev.com/ets2sync_helper_pt-BR.zip
+
+Inglês:
+http://files.dsantosdev.com/ets2sync_helper_en.zip
 
 ## Vídeo Tutorial
 Áudio em português, legendas em inglês (CC).
@@ -85,8 +89,12 @@ Se você deseja executar o programa a partir do código-fonte e/ou colaborar com
 	```
 	gem install ocra
 	```
-5. Execute `verbose.bat` ou `no_console.bat` para executar o programa.
-6. Para gerar um executável, execute `build_exe.bat`.
+5. Execute `verbose.bat` ou `no_console.bat` para executar o programa, passando o idioma como parâmetro. Ex.:
+
+	```
+	verbose pt-BR
+	```
+6. Para gerar um executável, execute `build_exe.bat`, passando o idioma como parâmetro.
 
 ### Bug na gem `qtbindings`
 
