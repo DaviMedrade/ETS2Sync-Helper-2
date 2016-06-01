@@ -69,7 +69,7 @@ class ETS2SyncHelper::SaveFormatFixer < Qt::GroupBox
 				@lbl.success(MSG[:status_ok])
 				@btn_fix.enabled = false
 			else
-				@lbl.failure(MSG[:save_format_wrong] % [ets2.save_format.nil? ? "não encontrado" : ets2.save_format.to_s, 3])
+				@lbl.failure(MSG[:save_format_wrong] % [ets2.save_format.nil? ? MSG[:save_format_not_found] : ets2.save_format.to_s, 3])
 				@btn_fix.enabled = true
 			end
 		else

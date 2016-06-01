@@ -23,6 +23,7 @@ MSG = {
 	save_format_change_failed: "A alteração do Formato do Save não funcionou.",
 	save_format_change_failed_prompt: "Altere manualmente o “g_save_format” do arquivo “config.cfg” na Pasta de Configuração do ETS para “3” e clique no botão “Atualizar”.",
 	save_format_wrong: "Formato do Save incorreto (no arquivo: %s, correto: %i).",
+	save_format_not_found: "não encontrado",
 	select_profile: "Selecione o Perfil",
 	no_profiles: "Nenhum perfil encontrado.",
 	one_profile: "1 perfil.",
