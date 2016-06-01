@@ -8,7 +8,7 @@ class ETS2SyncHelper::ProfileSelector < Qt::GroupBox
 
 	def initialize(parent)
 		@parent = parent
-		super("Selecione o Perfil", parent)
+		super(MSG[:select_profile], parent)
 		@lbl = ETS2SyncHelper::StatusLabel.new(self)
 		@cbo = Qt::ComboBox.new(self)
 		connect(@cbo, SIGNAL("currentIndexChanged(int)"), self, SLOT("index_changed(int)"))
@@ -56,9 +56,9 @@ class ETS2SyncHelper::ProfileSelector < Qt::GroupBox
 		if !ets2.valid?
 			@lbl.failure("")
 		elsif profiles.empty?
-			@lbl.failure("Nenhum perfil encontrado.")
+			@lbl.failure(MSG[:no_profiles])
 		else
-			@lbl.success("#{profiles.length} #{profiles.length == 1 ? "perfil" : "perfis"}.")
+			@lbl.success(profiles.length == 1 ? MSG[:one_profile] : MSG[:profiles] % profiles.length)
 		end
 	end
 end

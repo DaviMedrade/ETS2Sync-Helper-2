@@ -8,7 +8,7 @@ class ETS2SyncHelper::SaveSelector < Qt::GroupBox
 
 	def initialize(parent)
 		@parent = parent
-		super("Selecione o Save", parent)
+		super(MSG[:select_save], parent)
 		@lbl = ETS2SyncHelper::StatusLabel.new(self)
 		@cbo = Qt::ComboBox.new(self)
 		connect(@cbo, SIGNAL("currentIndexChanged(int)"), self, SLOT("index_changed(int)"))
@@ -68,13 +68,13 @@ class ETS2SyncHelper::SaveSelector < Qt::GroupBox
 		if profile.nil?
 			@lbl.failure("")
 		elsif saves.empty?
-			@lbl.failure("Nenhum save encontrado.")
+			@lbl.failure(MSG[:no_saves])
 		else
-			s = "#{saves.length} #{saves.length == 1 ? "save" : "saves"}. "
+			s = saves.length == 1 ? MSG[:one_save] : MSG[:saves] % saves.length
 			if compatible_saves.zero?
-				@lbl.failure("#{s}Nenhum é compatível. Se o Formato do Save está OK, crie um novo save.")
+				@lbl.failure("#{s} #{MSG[:no_saves_compatible]}")
 			else
-				@lbl.success("#{s}#{compatible_saves} #{compatible_saves == 1 ? "é compatível" : "são compatíveis"}.")
+				@lbl.success("#{s} #{compatible_saves == 1 ? MSG[:one_save_compatible] : MSG[:saves_compatible] % compatible_saves}")
 			end
 		end
 	end

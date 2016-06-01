@@ -1,1 +1,1 @@
-rubyw src/ets2sync_helper.rb
+rubyw src/ets2sync_helper.rb %1

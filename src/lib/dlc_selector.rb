@@ -4,12 +4,12 @@ class ETS2SyncHelper::DLCSelector < Qt::GroupBox
 
 	def initialize(parent)
 		@parent = parent
-		super("Selecione suas DLCs", parent)
-		@chk_north = Qt::CheckBox.new("Scandinavia", self)
+		super(MSG[:select_dlcs], parent)
+		@chk_north = Qt::CheckBox.new(MSG[:dlc_north], self)
 		connect(@chk_north, SIGNAL("stateChanged(int)"), self, SLOT("selection_changed(int)"))
-		@chk_east = Qt::CheckBox.new("Going East!", self)
+		@chk_east = Qt::CheckBox.new(MSG[:dlc_east], self)
 		connect(@chk_east, SIGNAL("stateChanged(int)"), self, SLOT("selection_changed(int)"))
-		@chk_hpower = Qt::CheckBox.new("High Power Cargo Pack", self)
+		@chk_hpower = Qt::CheckBox.new(MSG[:dlc_hpower], self)
 		connect(@chk_hpower, SIGNAL("stateChanged(int)"), self, SLOT("selection_changed(int)"))
 		hbox = Qt::HBoxLayout.new
 		hbox.add_widget(@chk_north)

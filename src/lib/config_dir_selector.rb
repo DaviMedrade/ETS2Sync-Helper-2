@@ -10,15 +10,15 @@ class ETS2SyncHelper::ConfigDirSelector < Qt::GroupBox
 
 	def initialize(parent)
 		@parent = parent
-		super("Pasta de Configuração do ETS2", parent)
+		super(MSG[:config_dir], parent)
 		@txt = Qt::LineEdit.new(ets2.config_dir.to_win, self)
 		@txt.read_only = true
 		@lbl = ETS2SyncHelper::StatusLabel.new(self)
-		@btn_refresh = Qt::PushButton.new("Atualizar", self)
+		@btn_refresh = Qt::PushButton.new(MSG[:reload], self)
 		connect(@btn_refresh, SIGNAL("clicked()"), self, SLOT("refresh_clicked()"))
-		@btn_restore = Qt::PushButton.new("Restaurar Padrão…", self)
+		@btn_restore = Qt::PushButton.new(MSG[:restore], self)
 		connect(@btn_restore, SIGNAL("clicked()"), self, SLOT("restore_clicked()"))
-		@btn_select = Qt::PushButton.new("Selecionar…", self)
+		@btn_select = Qt::PushButton.new(MSG[:choose], self)
 		connect(@btn_select, SIGNAL("clicked()"), self, SLOT("select_clicked()"))
 		hbox = Qt::HBoxLayout.new
 		hbox.add_widget(@lbl)
@@ -51,9 +51,9 @@ class ETS2SyncHelper::ConfigDirSelector < Qt::GroupBox
 
 	def update_status
 		if ets2.valid?
-			@lbl.success("OK")
+			@lbl.success(MSG[:status_ok])
 		else
-			@lbl.failure("Pasta de Configuração inválida.")
+			@lbl.failure(MSG[:config_dir_invalid])
 		end
 		@btn_restore.enabled = (ets2.config_dir != ETS2.default_config_dir)
 	end
@@ -74,8 +74,8 @@ class ETS2SyncHelper::ConfigDirSelector < Qt::GroupBox
 
 	def restore_clicked
 		msgbox = Qt::MessageBox.new
-		msgbox.text = "A Pasta de Configuração será restaurada para o padrão."
-		msgbox.informative_text = "Tem certeza?"
+		msgbox.text = MSG[:restore_prompt]
+		msgbox.informative_text = MSG[:are_you_sure]
 		msgbox.standard_buttons = Qt::MessageBox::Yes | Qt::MessageBox::No
 		msgbox.default_button = Qt::MessageBox::Yes
 		msgbox.window_title = APP_NAME

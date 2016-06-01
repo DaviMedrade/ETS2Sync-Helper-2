@@ -1,1 +1,1 @@
-ruby --verbose src/ets2sync_helper.rb
+ruby --verbose src/ets2sync_helper.rb %1

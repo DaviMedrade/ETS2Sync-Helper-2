@@ -45,7 +45,7 @@ class ETS2SyncHelper < Qt::Widget
 		else
 			msgbox = Qt::MessageBox.new
 			msgbox.standard_buttons = Qt::MessageBox::Ok
-			msgbox.window_title = "Erro"
+			msgbox.window_title = MSG[:error]
 			msgbox.text = "#{e.class}: #{e.message}"
 			msgbox.icon = Qt::MessageBox::Critical
 			msgbox.exec
@@ -81,7 +81,7 @@ class ETS2SyncHelper < Qt::Widget
 		vbox_main.add_widget(sync_widget, 1, Qt::AlignTop)
 
 		hbox_close = Qt::HBoxLayout.new
-		@btn_close = Qt::PushButton.new("Fechar", self)
+		@btn_close = Qt::PushButton.new(MSG[:close], self)
 		connect(@btn_close, SIGNAL("clicked()"), Qt::CoreApplication.instance, SLOT("quit()"))
 		hbox_close.add_widget(@btn_close, 1, Qt::AlignRight)
 		vbox_main.add_layout(hbox_close)

@@ -13,10 +13,10 @@ class ETS2
 	def self.display_time(time)
 		secs = (Time.now - time).to_i
 		if secs < 60
-			"#{secs} segundo#{"s" unless secs == 1} atrás"
+			secs == 1 ? MSG[:one_sec_ago] : MSG[:secs_ago] % secs
 		elsif secs < 3600
 			mins = secs / 60
-			"#{mins} minuto#{"s" unless mins == 1} atrás"
+			mins == 1 ? MSG[:one_min_ago] : MSG[:mins_ago] % secs
 		else
 			time.strftime("%d/%m/%Y %H:%M:%S")
 		end
@@ -181,7 +181,7 @@ class ETS2
 				@raw = SIIFile.read(file)
 				m = @raw.match(/^\s*name:\s+(?:\"(.*)\"|(.*))/)
 				@name = (m[1] || m[2]).chomp if m
-				@name = "[sem nome]" if @name.empty?
+				@name = MSG[:no_name] if @name.empty?
 				m = @raw.match(/^\s*file_time:\s+(?:\"(.*)\"|(.*))/)
 				@saved_at = Time.at((m[1] || m[2]).chomp.to_i) if m
 				@zero_file = (@dir + "game.sii.0").file?

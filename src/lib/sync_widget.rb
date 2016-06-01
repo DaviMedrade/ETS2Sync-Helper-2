@@ -15,9 +15,9 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 	def initialize(parent)
 		@jobs_data = nil
 		@parent = parent
-		super("Sincronização", parent)
+		super(MSG[:sync], parent)
 		@lbl_compatible = ETS2SyncHelper::StatusLabel.new(self)
-		@btn = Qt::PushButton.new("   Sincronizar   ", self)
+		@btn = Qt::PushButton.new("   #{MSG[:do_sync]}   ", self)
 		@btn.style_sheet = "QPushButton { font-weight: bold; } QPushButton:enabled { color: #080; }"
 		@btn.default = true
 		connect(@btn, SIGNAL("clicked()"), self, SLOT("sync_clicked()"))
@@ -62,13 +62,13 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 			begin
 				http = nil
 				@jobs_data = ""
-				progress(status: "Baixando a lista de cargas: conectando…", error: false, finished: false, percent: nil)
+				progress(status: "#{MSG[:downloading_job_list]} conectando…", error: false, finished: false, percent: nil)
 				http = Net::HTTP.start(JOBS_URI.host, JOBS_URI.port)
-				progress(status: "Baixando a lista de cargas: enviando requisição…")
+				progress(status: "#{MSG[:downloading_job_list]} enviando requisição…")
 				http.request_get(JOBS_URI) do |response|
 					response.value
 					length = response['Content-Length'].to_f
-					progress(status: "Baixando a lista de cargas: recebendo a lista…")
+					progress(status: "#{MSG[:downloading_job_list]} recebendo a lista…")
 					response.read_body do |chunk|
 						@jobs_data << chunk
 						if length.nil?
@@ -81,12 +81,12 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 					end
 				end
 			rescue => e
-				progress(status: "Erro ao baixar a lista de cargas. #{e.class}: #{e.message}", error: true, finished: true)
+				progress(status: "#{MSG[:error_downloading_list]} #{e.class}: #{e.message}", error: true, finished: true)
 			ensure
 				http.finish rescue nil
 			end
 			begin
-				p = progress(status: "Inserindo as cargas no save…", percent: nil)
+				p = progress(status: MSG[:inserting_jobs], percent: nil)
 				data = JSON.parse(@jobs_data)
 				jobs = {}
 				data.each do |job|
@@ -102,7 +102,7 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 				p[:save].replace_jobs(jobs)
 				progress(error: false, finished: true)
 			rescue => e
-				progress(status: "Erro ao inserir as cargas no save. #{e.class}: #{e.message}", error: true, finished: true)
+				progress(status: "#{MSG[:error_inserting_jobs]} #{e.class}: #{e.message}", error: true, finished: true)
 			end
 		end
 	end
@@ -125,7 +125,7 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 			@pbr.value = p[:error] ? 0 : 100
 			@pbr.maximum = 100
 			unless p[:error]
-				@lbl_status.success("Sincronização concluída.")
+				@lbl_status.success(MSG[:sync_complete])
 			end
 			@tmr.stop
 			emit syncing(false)
@@ -139,10 +139,10 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 			@lbl_compatible.failure("")
 			@btn.enabled = false
 		elsif !save.zero_file?
-			@lbl_compatible.failure("O save selecionado não é compatível.")
+			@lbl_compatible.failure(MSG[:sync_incompatible_save])
 			@btn.enabled = false
 		else
-			@lbl_compatible.success("O save selecionado é compatível.")
+			@lbl_compatible.success(MSG[:sync_compatible_save])
 			@btn.enabled = true
 		end
 	end
