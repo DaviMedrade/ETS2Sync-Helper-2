@@ -16,7 +16,7 @@ class ETS2
 			secs == 1 ? MSG[:one_sec_ago] : MSG[:secs_ago] % secs
 		elsif secs < 3600
 			mins = secs / 60
-			mins == 1 ? MSG[:one_min_ago] : MSG[:mins_ago] % secs
+			mins == 1 ? MSG[:one_min_ago] : MSG[:mins_ago] % mins
 		else
 			time.strftime(MSG[:date_time])
 		end
