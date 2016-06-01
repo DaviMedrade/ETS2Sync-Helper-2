@@ -18,7 +18,7 @@ class ETS2
 			mins = secs / 60
 			mins == 1 ? MSG[:one_min_ago] : MSG[:mins_ago] % secs
 		else
-			time.strftime("%d/%m/%Y %H:%M:%S")
+			time.strftime(MSG[:date_time])
 		end
 	end
 
