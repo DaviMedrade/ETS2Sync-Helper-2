@@ -62,13 +62,13 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 			begin
 				http = nil
 				@jobs_data = ""
-				progress(status: "#{MSG[:downloading_job_list]} conectando…", error: false, finished: false, percent: nil)
+				progress(status: "#{MSG[:downloading_job_list]} #{MSG[:connecting]}", error: false, finished: false, percent: nil)
 				http = Net::HTTP.start(JOBS_URI.host, JOBS_URI.port)
-				progress(status: "#{MSG[:downloading_job_list]} enviando requisição…")
+				progress(status: "#{MSG[:downloading_job_list]} #{MSG[:sending_request]}")
 				http.request_get(JOBS_URI) do |response|
 					response.value
 					length = response['Content-Length'].to_f
-					progress(status: "#{MSG[:downloading_job_list]} recebendo a lista…")
+					progress(status: "#{MSG[:downloading_job_list]} #{MSG[:receiving_list]}")
 					response.read_body do |chunk|
 						@jobs_data << chunk
 						if length.nil?
