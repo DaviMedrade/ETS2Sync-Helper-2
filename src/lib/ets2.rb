@@ -118,7 +118,7 @@ class ETS2
 			@saves = nil
 			file = @dir + "profile.sii"
 			if @ets2.valid? && @dir.directory? && file.file?
-				@raw = SIIFile.read(file)
+				@raw = SII::File.read(file)
 				m = @raw.match(/^\s*profile_name:\s+(?:\"(.*)\"|(.*))/)
 				@name = (m[1] || m[2]).chomp if m
 				@name = "[sem nome]" if @name.empty?
@@ -126,7 +126,7 @@ class ETS2
 				@saved_at = Time.at((m[1] || m[2]).chomp.to_i) if m
 			end
 			@valid = !!(@raw && @name && @saved_at)
-		rescue SIIFile::UnknownFormat
+		rescue SII::File::UnknownFormat
 			@valid = false
 		end
 
@@ -175,19 +175,19 @@ class ETS2
 			@name = nil
 			@raw = nil
 			@saved_at = nil
-			@zero_file = false
+			@save_file = false
 			file = @dir + "info.sii"
 			if @profile.valid? && @dir.directory? && file.file?
-				@raw = SIIFile.read(file)
+				@raw = SII::File.read(file)
 				m = @raw.match(/^\s*name:\s+(?:\"(.*)\"|(.*))/)
 				@name = (m[1] || m[2]).chomp if m
 				@name = MSG[:no_name] if @name.empty?
 				m = @raw.match(/^\s*file_time:\s+(?:\"(.*)\"|(.*))/)
 				@saved_at = Time.at((m[1] || m[2]).chomp.to_i) if m
-				@zero_file = (@dir + "game.sii.0").file?
+				@save_file = (@dir + "game.sii").file?
 			end
 			@valid = !!(@raw && @name && @saved_at)
-		rescue SIIFile::UnknownFormat
+		rescue SII::File::UnknownFormat
 			@valid = false
 		end
 
@@ -210,7 +210,7 @@ class ETS2
 				"ferry_price" => "0"
 			}
 			first_job = true
-			SIIFile.read(old_file).each_line do |line|
+			SII::File.read(old_file).each_line do |line|
 				line.chomp!
 				loop do
 					unless line.match(/\s+#/)
@@ -275,7 +275,7 @@ class ETS2
 			@dir.basename.to_s.include?("autosave")
 		end
 
-		def zero_file?
+		def save_file?
 			@zero_file
 		end
 
@@ -292,34 +292,5 @@ class ETS2
 		def inspect
 			"#<#{self.class}:#{"0x%x" % self.object_id} #{@name.inspect} (#{"not " unless @valid}valid) - #{@dir.to_s.inspect}>"
 		end
-	end
-
-	module SIIFile
-		AES_KEY = "\x2a\x5f\xcb\x17\x91\xd2\x2f\xb6\x02\x45\xb3\xd8\x36\x9e\xd0\xb2\xc2\x73\x71\x56\x3f\xbf\x1f\x3c\x9e\xdf\x6b\x11\x82\x5a\x5d\x0a".force_encoding('BINARY')
-
-		def self.read(file)
-			data = file.read(mode: "rb")
-			magic = data[0..3]
-			return data if magic == "SiiN"
-			unless OpenSSL::Cipher.ciphers.include?("AES-256-CBC")
-				raise RuntimeError, "OpenSSL does not have the AES-256-CBC cipher"
-			end
-			if magic != "ScsC"
-				raise UnknownFormat, "format of file #{file.to_win.inspect} not recognized - magic: #{magic.inspect}"
-			end
-			ciphertext = data[0x38..-1]
-			init_vector = data[0x24...0x34]
-			cipher = OpenSSL::Cipher.new("AES-256-CBC")
-			cipher.decrypt
-			cipher.padding = 0
-			cipher.key = AES_KEY
-			cipher.iv = init_vector
-			data = cipher.update(ciphertext)
-			data << cipher.final
-			data = Zlib::Inflate.inflate(data)
-			data
-		end
-
-		class UnknownFormat < StandardError ; end
 	end
 end
