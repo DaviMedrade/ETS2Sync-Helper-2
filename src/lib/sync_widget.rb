@@ -57,7 +57,6 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 		@btn.enabled = false
 		emit syncing(true)
 		progress(save: parent.save, dlcs: parent.dlcs)
-		#(parent.save.dir + "game.sii.0.txt").write(ETS2::SIIFile.read(parent.save.dir + "game.sii.0"))
 		Thread.new do |thr|
 			begin
 				http = nil
