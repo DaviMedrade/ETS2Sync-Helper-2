@@ -18,10 +18,6 @@ class SaveSelector < Qt::GroupBox
 		set_layout(vbox)
 		connect(parent, SIGNAL("profile_changed()"), self, SLOT("profile_changed()"))
 		connect(parent, SIGNAL("sync_changed()"), self, SLOT("sync_changed()"))
-		@icon_ok = Qt::Icon.new
-		@icon_ok.add_file("res/check_ok.png", Qt::Size.new(15, 15))
-		@icon_fail = Qt::Icon.new
-		@icon_fail.add_file("res/check_fail.png", Qt::Size.new(15, 15))
 	end
 
 	def profile_changed
