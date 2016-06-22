@@ -5,7 +5,7 @@ class SyncWidget < Qt::GroupBox
 	signals("syncing(bool)")
 	slots("save_changed()", "sync_clicked()", "update_progress()")
 
-	JOBS_URI = URI("http://sync.dsantosdev.com/list.php")
+	JOBS_URL = "http://sync.dsantosdev.com/app/sync?v=#{ETS2SyncHelper::VERSION}&hl=#{ETS2SyncHelper::LANG}&dlcs=%s"
 	PROGRESS_MUTEX = Mutex.new
 
 	def save
@@ -26,6 +26,8 @@ class SyncWidget < Qt::GroupBox
 		hbox.add_widget(@btn, 1, Qt::AlignRight)
 		@lbl_status = StatusLabel.new(self)
 		@lbl_status.bold = false
+		@lbl_status.text_interaction_flags = Qt::TextBrowserInteraction
+		@lbl_status.open_external_links = true
 		@pbr = Qt::ProgressBar.new(self)
 		@pbr.minimum = 0
 		vbox = Qt::VBoxLayout.new
@@ -61,10 +63,11 @@ class SyncWidget < Qt::GroupBox
 			begin
 				http = nil
 				@jobs_data = ""
-				progress(status: "#{MSG[:downloading_job_list]} #{MSG[:connecting]}", error: false, finished: false, percent: nil)
-				http = Net::HTTP.start(JOBS_URI.host, JOBS_URI.port)
+				p = progress(status: "#{MSG[:downloading_job_list]} #{MSG[:connecting]}", error: false, finished: false, percent: nil)
+				jobs_uri = URI(JOBS_URL % p[:dlcs].join(","))
+				http = Net::HTTP.start(jobs_uri.host, jobs_uri.port)
 				progress(status: "#{MSG[:downloading_job_list]} #{MSG[:sending_request]}")
-				http.request_get(JOBS_URI) do |response|
+				http.request_get(jobs_uri) do |response|
 					response.value
 					length = response['Content-Length'].to_f
 					progress(status: "#{MSG[:downloading_job_list]} #{MSG[:receiving_list]}")
@@ -79,29 +82,37 @@ class SyncWidget < Qt::GroupBox
 						end
 					end
 				end
-			rescue => e
+			rescue Exception => e
 				progress(status: "#{MSG[:error_downloading_list]} #{e.class}: #{e.message}", error: true, finished: true)
+				@jobs_data = nil
 			ensure
 				http.finish rescue nil
 			end
-			begin
-				p = progress(status: MSG[:inserting_jobs], percent: nil)
-				data = JSON.parse(@jobs_data)
-				jobs = {}
-				data.each do |job|
-					k = "#{job["company"]}.#{job["city"]}"
-					next unless job["dlc_city"] == "none" || p[:dlcs].include?(job["dlc_city"])
-					next unless job["dlc_cargo"] == "none" || p[:dlcs].include?(job["dlc_cargo"])
-					if job["company"] == "volvo_dlr" || job["company"] == "scania_dlr" || job["target_company"] == "volvo_dlr" || job["target_city"] == "scania_dlr"
-						next unless p[:dlcs].include?("north")
+			if @jobs_data
+				begin
+					p = progress(status: MSG[:inserting_jobs], percent: nil)
+					data = JSON.parse(@jobs_data)
+					jobs = {}
+					data.each do |job|
+						k = "#{job["company"]}.#{job["city"]}"
+						next unless job["dlc_city"] == "none" || p[:dlcs].include?(job["dlc_city"])
+						next unless job["dlc_cargo"] == "none" || p[:dlcs].include?(job["dlc_cargo"])
+						if job["company"] == "volvo_dlr" || job["company"] == "scania_dlr" || job["target_company"] == "volvo_dlr" || job["target_city"] == "scania_dlr"
+							next unless p[:dlcs].include?("north")
+						end
+						jobs[k] ||= []
+						jobs[k] << job
 					end
-					jobs[k] ||= []
-					jobs[k] << job
+					p[:save].replace_jobs(jobs)
+					progress(error: false, finished: true)
+				rescue Exception => e
+					if e.is_a?(JSON::ParserError)
+						msg = @jobs_data
+					else
+						msg = "#{e.class}: #{e.message}"
+					end
+					progress(status: "#{MSG[:error_inserting_jobs]} #{msg}", error: true, finished: true)
 				end
-				p[:save].replace_jobs(jobs)
-				progress(error: false, finished: true)
-			rescue => e
-				progress(status: "#{MSG[:error_inserting_jobs]} #{e.class}: #{e.message}", error: true, finished: true)
 			end
 		end
 	end
