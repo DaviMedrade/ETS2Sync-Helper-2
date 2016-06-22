@@ -4,7 +4,7 @@ class MainWindow < Qt::Widget
 	attr_reader :ets2, :profile, :save, :dlcs
 
 	signals("config_dir_changed()", "save_format_changed()", "profile_changed()", "save_changed()", "dlcs_changed()", "sync_changed()")
-	slots("dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
+	slots("show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
 
 	def initialize
 		super
@@ -27,6 +27,7 @@ class MainWindow < Qt::Widget
 			msgbox = Qt::MessageBox.new
 			msgbox.standard_buttons = Qt::MessageBox::Ok
 			msgbox.window_title = MSG[:error]
+			msgbox.window_icon = self.window_icon
 			msgbox.text = "#{e.class}: #{e.message}"
 			msgbox.icon = Qt::MessageBox::Critical
 			msgbox.exec
@@ -62,16 +63,27 @@ class MainWindow < Qt::Widget
 		vbox_main.add_widget(sync_widget, 1, Qt::AlignTop)
 
 		hbox_close = Qt::HBoxLayout.new
-		@lbl_version = Qt::Label.new("", self)
-		s = MSG[:version] % ETS2SyncHelper::VERSION
+		btn_about = Qt::PushButton.new(MSG[:about_button], self)
+		connect(btn_about, SIGNAL("clicked()"), self, SLOT("show_about()"))
+		hbox_close.add_widget(btn_about)
 		if new_version_available?
-			s << " — #{MSG[:new_version_available]}"
-			s << " <a href='http://sync.dsantosdev.com/app/new_version?v=#{ETS2SyncHelper::VERSION}'>#{MSG[:open_website_prompt]}</a>"
+			msgbox = Qt::MessageBox.new
+			msgbox.standard_buttons = Qt::MessageBox::Yes | Qt::MessageBox::No
+			msgbox.window_title = APP_NAME
+			msgbox.window_icon = self.window_icon
+			msgbox.text = MSG[:new_version_prompt]
+			msgbox.icon = Qt::MessageBox::Information
+			if msgbox.exec == Qt::MessageBox::Yes
+				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper::DOWNLOAD_URL))
+			end
+			lbl_update = Qt::Label.new("", self)
+			s = " — #{MSG[:new_version_available]}"
+			s << " <a href='#{ETS2SyncHelper::DOWNLOAD_URL}'>#{MSG[:open_website_prompt]}</a>"
+			lbl_update.text = s
+			lbl_update.text_interaction_flags = Qt::TextBrowserInteraction
+			lbl_update.open_external_links = true
+			hbox_close.add_widget(lbl_update)
 		end
-		@lbl_version.text = s
-		@lbl_version.text_interaction_flags = Qt::TextBrowserInteraction
-		@lbl_version.open_external_links = true
-		hbox_close.add_widget(@lbl_version)
 		@btn_close = Qt::PushButton.new(MSG[:close], self)
 		connect(@btn_close, SIGNAL("clicked()"), Qt::CoreApplication.instance, SLOT("quit()"))
 		hbox_close.add_widget(@btn_close, 1, Qt::AlignRight)
@@ -84,22 +96,40 @@ class MainWindow < Qt::Widget
 	end
 
 	def new_version_available?
-		begin
-			data = Net::HTTP.get_response(URI("http://sync.dsantosdev.com/app/check_version?v=#{ETS2SyncHelper::VERSION}"))
-			data.value
-			data = data.body
-		rescue => e
-			data = "#{e.class}: #{e.message}"
+		dialog = Qt::Label.new
+		dialog.window_flags = Qt::CustomizeWindowHint | Qt::WindowTitleHint # & ~Qt::WindowCloseButtonHint
+		dialog.text = "<img src='res/app.ico' align='middle'><br><br>#{MSG[:checking]}"
+		dialog.alignment = Qt::AlignCenter
+		dialog.window_title = APP_NAME
+		dialog.window_icon = self.window_icon
+		dialog.set_contents_margins(20, 20, 20, 20)
+		dialog.show
+		dialog.fixed_size = dialog.size
+		center(dialog)
+		Qt::Application.process_events
+		sleep 0.5 # wait for the window to show
+		@check_data = nil
+		Thread.new do
+			@check_data = ETS2SyncHelper.check_version
 		end
-		return false if data == "current"
-		return true if data == "outdated"
+		while @check_data.nil?
+			Qt::Application.process_events
+		end
+		dialog.dispose
+		return false if @check_data == "current"
+		return true if @check_data == "outdated"
 		msgbox = Qt::MessageBox.new
+		msgbox.window_icon = self.window_icon
 		msgbox.standard_buttons = Qt::MessageBox::Ok
 		msgbox.window_title = MSG[:error]
-		msgbox.text = MSG[:error_checking_new_version] % data
+		msgbox.text = "#{MSG[:check_error]}\n\n#{@check_data}"
 		msgbox.icon = Qt::MessageBox::Warning
 		msgbox.exec
 		exit(1)
+	end
+
+	def show_about
+		AboutWindow.new(self)
 	end
 
 	def dir_selected(dir)
@@ -148,11 +178,11 @@ class MainWindow < Qt::Widget
 		@syncing
 	end
 
-	def center
+	def center(widget = self)
 		w = Qt::DesktopWidget.new
 		ps_geometry = w.available_geometry(w.primary_screen)
-		x = [0, (ps_geometry.width - width) / 2 + ps_geometry.x].max
-		y = [0, (ps_geometry.height - height) / 2 + ps_geometry.y].max
-		move(x, y)
+		x = [0, (ps_geometry.width - widget.width) / 2 + ps_geometry.x].max
+		y = [0, (ps_geometry.height - widget.height) / 2 + ps_geometry.y].max
+		widget.move(x, y)
 	end
 end
