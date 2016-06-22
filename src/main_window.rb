@@ -77,7 +77,7 @@ class MainWindow < Qt::Widget
 				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper::DOWNLOAD_URL))
 			end
 			lbl_update = Qt::Label.new("", self)
-			s = " — #{MSG[:new_version_available]}"
+			s = MSG[:new_version_available].dup
 			s << " <a href='#{ETS2SyncHelper::DOWNLOAD_URL}'>#{MSG[:open_website_prompt]}</a>"
 			lbl_update.text = s
 			lbl_update.text_interaction_flags = Qt::TextBrowserInteraction
