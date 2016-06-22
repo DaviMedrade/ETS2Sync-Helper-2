@@ -58,8 +58,8 @@ class ETS2SyncHelper::SaveSelector < Qt::GroupBox
 		compatible_saves = 0
 		saves.reverse_each.with_index do |save, idx|
 			@cbo.add_item(save.display_name, Qt::Variant.new(save.dir.to_s))
-			@cbo.set_item_icon(@cbo.count - 1, save.zero_file? ? @icon_ok : @icon_fail)
-			compatible_saves += 1 if save.zero_file?
+			@cbo.set_item_icon(@cbo.count - 1, save.save_file? ? @icon_ok : @icon_fail)
+			compatible_saves += 1 if save.save_file?
 			if save.dir == prev
 				prev_new_idx = idx
 			end

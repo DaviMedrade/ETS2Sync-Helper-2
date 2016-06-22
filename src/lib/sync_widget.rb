@@ -137,7 +137,7 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 		if save.nil?
 			@lbl_compatible.failure("")
 			@btn.enabled = false
-		elsif !save.zero_file?
+		elsif !save.save_file?
 			@lbl_compatible.failure(MSG[:sync_incompatible_save])
 			@btn.enabled = false
 		else
