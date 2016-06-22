@@ -44,32 +44,32 @@ class ETS2SyncHelper::SaveFormatFixer < Qt::GroupBox
 		msgbox.window_title = APP_NAME
 		msgbox.icon = Qt::MessageBox::Question
 		if msgbox.exec == Qt::MessageBox::Yes
-			ets2.set_save_format(3)
-			emit changed(ets2.save_format == 3)
-			msgbox = Qt::MessageBox.new
-			msgbox.standard_buttons = Qt::MessageBox::Ok
-			msgbox.window_title = APP_NAME
-			if ets2.save_format == 3
-				msgbox.text = MSG[:save_format_changed]
-				msgbox.informative_text = MSG[:save_format_changed_prompt]
-				msgbox.icon = Qt::MessageBox::Information
-			else
+			ets2.set_save_format(0)
+			emit changed(ets2.save_format == 0)
+			if ets2.save_format != 0
+				msgbox = Qt::MessageBox.new
+				msgbox.standard_buttons = Qt::MessageBox::Ok
+				msgbox.window_title = APP_NAME
 				msgbox.text = MSG[:save_format_change_failed]
 				msgbox.informative_text = MSG[:save_format_change_failed_prompt]
 				msgbox.icon = Qt::MessageBox::Warning
+				msgbox.exec
 			end
-			msgbox.exec
 		end
 	end
 
 	def update_status(fix: false)
 		if ets2.valid?
 			@txt.text = ets2.save_format_line
-			if ets2.save_format == 3
+			case ets2.save_format
+			when 0
 				@lbl.success(MSG[:status_ok])
 				@btn_fix.enabled = false
+			when 2, 3
+				@lbl.warning(MSG[:save_format_not_recommended])
+				@btn_fix.enabled = true
 			else
-				@lbl.failure(MSG[:save_format_wrong] % [ets2.save_format.nil? ? MSG[:save_format_not_found] : ets2.save_format.to_s, 3])
+				@lbl.failure(MSG[:save_format_unknown])
 				@btn_fix.enabled = true
 			end
 		else

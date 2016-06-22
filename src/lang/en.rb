@@ -16,6 +16,8 @@ MSG = {
 	restore_prompt: "The Settings Folder will be restored to the default.",
 	are_you_sure: "Are you sure?",
 	save_format: "Save Format",
+	save_format_not_recommended: "The recommended save format is \"0\".",
+	save_format_unknown: "This save format is not known. Recommended: \"0\".",
 	fix_save_format: "Fix…",
 	fix_save_format_prompt: "The Save Format in your settings file will be changed.\nYou must not have the game running.",
 	save_format_changed: "The Save Format was changed successfully.",

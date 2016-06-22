@@ -20,6 +20,11 @@ class ETS2SyncHelper::StatusLabel < Qt::Label
 		self.color = "#f00"
 	end
 
+	def warning(str)
+		self.text = str
+		self.color = "#990"
+	end
+
 	def progress(str)
 		self.text = str
 		self.color = nil
