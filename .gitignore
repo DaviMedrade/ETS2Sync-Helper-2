@@ -2,3 +2,4 @@ extra/
 /ets2sync_helper.*
 game/
 build/
+error.log
