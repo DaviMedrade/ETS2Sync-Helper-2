@@ -137,11 +137,8 @@ class SyncWidget < Qt::GroupBox
 		if save.nil?
 			@lbl_compatible.failure("")
 			@btn.enabled = false
-		elsif !save.save_file?
-			@lbl_compatible.failure(MSG[:sync_incompatible_save])
-			@btn.enabled = false
 		else
-			@lbl_compatible.success(MSG[:sync_compatible_save])
+			@lbl_compatible.success(MSG[:sync_ready])
 			@btn.enabled = true
 		end
 	end

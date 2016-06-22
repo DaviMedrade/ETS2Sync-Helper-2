@@ -47,7 +47,6 @@ MSG = {
 	error_downloading_list: "Error downloading job list.",
 	inserting_jobs: "Inserting jobs into the save…",
 	error_inserting_jobs: "Error inserting jobs into the save.",
-	sync_complete: "Sync complete.",
-	sync_incompatible_save: "The save selected is not compatible.",
-	sync_compatible_save: "The save selected is compatible."
+	sync_ready: "Ready to sync.",
+	sync_complete: "Sync complete."
 }
