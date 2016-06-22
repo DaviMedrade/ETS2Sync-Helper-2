@@ -36,9 +36,11 @@ begin
 	MainWindow.new
 	app.exec
 rescue Exception => e
-	msg = ["ETS2Sync Helper crashed...\n\nError details:"]
-	msg << "#{e.class} - #{e.message}"
-	msg += e.backtrace
-	File.write("error.log", msg.join("\n")+"\n\n")
-	system("start", "cmd", "/c", "COLOR 0A & TYPE error.log & PAUSE")
+	unless e.is_a?(SystemExit)
+		msg = ["ETS2Sync Helper crashed...\n\nError details:"]
+		msg << "#{e.class} - #{e.message}"
+		msg += e.backtrace
+		File.write("error.log", msg.join("\n")+"\n\n")
+		system("start", "cmd", "/c", "COLOR 0A & TYPE error.log & PAUSE")
+	end
 end
