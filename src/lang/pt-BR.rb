@@ -6,7 +6,7 @@ MSG = {
 	about_author: "Criado por <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_api: "Lista de cargas fornecida por <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — fornecido por <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
-	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — fornecido por <a href='https://rubygems.org/qtbindings'>qtbindings</a>.", # %s is the Qt version
+	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — fornecido por <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
 	about_website: "Site: %s",
 	check_again: "Verificar Novamente",
 	checking: "Procurando novas versões…",
