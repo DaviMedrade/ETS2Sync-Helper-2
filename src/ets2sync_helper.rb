@@ -1,4 +1,6 @@
 begin
+	Dir.chdir(__dir__)
+
 	$LOAD_PATH << __dir__+"/lib"
 	require "Qt"
 	require "ets2"
@@ -29,16 +31,14 @@ begin
 	end
 
 	APP_NAME = "ETS2Sync Helper"
-	Dir.chdir(__dir__)
 
 	app = Qt::Application.new(ARGV)
 	MainWindow.new
 	app.exec
 rescue Exception => e
-	puts "/!\\ Exception /!\\"
-	puts "#{e.class} - #{e.message}"
-	puts "\t#{e.backtrace[0..3].join("\t\n")}"
-	puts
-	puts "Press any key to close..."
-	gets
+	msg = ["ETS2Sync Helper crashed...\n\nError details:"]
+	msg << "#{e.class} - #{e.message}"
+	msg += e.backtrace
+	File.write("error.log", msg.join("\n")+"\n\n")
+	system("start", "cmd", "/c", "COLOR 0A & TYPE error.log & PAUSE")
 end
