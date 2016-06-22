@@ -48,7 +48,7 @@ MSG = {
 	one_profile: "1 perfil.",
 	profiles: "%i perfis.",
 	select_save: "Selecione o Save",
-	no_saves: "No saves encontrados.",
+	no_saves: "Nenhum save encontrado.",
 	one_save: "1 save.",
 	saves: "%i saves.",
 	select_dlcs: "DLCs",
