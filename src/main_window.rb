@@ -64,6 +64,16 @@ class MainWindow < Qt::Widget
 		vbox_main.add_widget(sync_widget, 1, Qt::AlignTop)
 
 		hbox_close = Qt::HBoxLayout.new
+		@lbl_version = Qt::Label.new("", self)
+		s = MSG[:version] % ETS2SyncHelper::VERSION
+		if new_version_available?
+			s << " — #{MSG[:new_version_available]}"
+			s << " <a href='http://sync.dsantosdev.com/app/new_version?v=#{ETS2SyncHelper::VERSION}'>#{MSG[:open_website_prompt]}</a>"
+		end
+		@lbl_version.text = s
+		@lbl_version.text_interaction_flags = Qt::TextBrowserInteraction
+		@lbl_version.open_external_links = true
+		hbox_close.add_widget(@lbl_version)
 		@btn_close = Qt::PushButton.new(MSG[:close], self)
 		connect(@btn_close, SIGNAL("clicked()"), Qt::CoreApplication.instance, SLOT("quit()"))
 		hbox_close.add_widget(@btn_close, 1, Qt::AlignRight)
@@ -73,6 +83,25 @@ class MainWindow < Qt::Widget
 		emit config_dir_changed
 
 		self.layout = vbox_main
+	end
+
+	def new_version_available?
+		begin
+			data = Net::HTTP.get_response(URI("http://sync.dsantosdev.com/app/check_version?v=#{ETS2SyncHelper::VERSION}"))
+			data.value
+			data = data.body
+		rescue => e
+			data = "#{e.class}: #{e.message}"
+		end
+		return false if data == "current"
+		return true if data == "outdated"
+		msgbox = Qt::MessageBox.new
+		msgbox.standard_buttons = Qt::MessageBox::Ok
+		msgbox.window_title = MSG[:error]
+		msgbox.text = MSG[:error_checking_new_version] % data
+		msgbox.icon = Qt::MessageBox::Warning
+		msgbox.exec
+		exit(1)
 	end
 
 	def dir_selected(dir)
