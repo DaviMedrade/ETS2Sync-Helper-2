@@ -88,7 +88,6 @@ class AboutWindow < Qt::Dialog
 
 		sep = Qt::Frame.new
 		sep.frame_shape = Qt::Frame::HLine
-		sep.frame_shadow = Qt::Frame::Sunken
 		vbox_main.add_widget(sep)
 
 		btnbox = Qt::DialogButtonBox.new(Qt::DialogButtonBox::Close)
