@@ -3,6 +3,7 @@ begin
 	require "Qt"
 	require "ets2"
 
+	require_relative "version"
 	require_relative "main_window"
 	require_relative "config_dir_selector"
 	require_relative "save_format_fixer"
