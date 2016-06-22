@@ -1,7 +1,7 @@
 require "net/http"
 require "json"
 
-class ETS2SyncHelper::SyncWidget < Qt::GroupBox
+class SyncWidget < Qt::GroupBox
 	signals("syncing(bool)")
 	slots("save_changed()", "sync_clicked()", "update_progress()")
 
@@ -16,7 +16,7 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 		@jobs_data = nil
 		@parent = parent
 		super(MSG[:sync], parent)
-		@lbl_compatible = ETS2SyncHelper::StatusLabel.new(self)
+		@lbl_compatible = StatusLabel.new(self)
 		@btn = Qt::PushButton.new("   #{MSG[:do_sync]}   ", self)
 		@btn.style_sheet = "QPushButton { font-weight: bold; } QPushButton:enabled { color: #080; }"
 		@btn.default = true
@@ -24,7 +24,7 @@ class ETS2SyncHelper::SyncWidget < Qt::GroupBox
 		hbox = Qt::HBoxLayout.new
 		hbox.add_widget(@lbl_compatible)
 		hbox.add_widget(@btn, 1, Qt::AlignRight)
-		@lbl_status = ETS2SyncHelper::StatusLabel.new(self)
+		@lbl_status = StatusLabel.new(self)
 		@lbl_status.bold = false
 		@pbr = Qt::ProgressBar.new(self)
 		@pbr.minimum = 0

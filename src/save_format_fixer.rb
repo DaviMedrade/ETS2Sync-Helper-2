@@ -1,6 +1,4 @@
-require_relative("status_label")
-
-class ETS2SyncHelper::SaveFormatFixer < Qt::GroupBox
+class SaveFormatFixer < Qt::GroupBox
 	slots("config_dir_changed()", "fix_clicked()", "save_format_changed()")
 	signals("changed(bool)")
 
@@ -13,7 +11,7 @@ class ETS2SyncHelper::SaveFormatFixer < Qt::GroupBox
 		super(MSG[:save_format], parent)
 		@txt = Qt::LineEdit.new(ets2.config_dir.to_win, self)
 		@txt.read_only = true
-		@lbl = ETS2SyncHelper::StatusLabel.new(self)
+		@lbl = StatusLabel.new(self)
 		@btn_fix = Qt::PushButton.new(MSG[:fix_save_format], self)
 		connect(@btn_fix, SIGNAL("clicked()"), self, SLOT("fix_clicked()"))
 		hbox = Qt::HBoxLayout.new

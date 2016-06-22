@@ -1,4 +1,4 @@
-class ETS2SyncHelper::StatusLabel < Qt::Label
+class StatusLabel < Qt::Label
 	attr_accessor :bold
 
 	def initialize(*args)

@@ -1,4 +1,4 @@
-class ETS2SyncHelper::DLCSelector < Qt::GroupBox
+class DLCSelector < Qt::GroupBox
 	slots("selection_changed(int)", "sync_changed()")
 	signals("changed(const QString &)")
 

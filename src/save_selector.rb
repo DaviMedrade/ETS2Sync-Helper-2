@@ -1,4 +1,4 @@
-class ETS2SyncHelper::SaveSelector < Qt::GroupBox
+class SaveSelector < Qt::GroupBox
 	slots("profile_changed()", "index_changed(int)", "sync_changed()")
 	signals("changed(const QString &)")
 
@@ -9,7 +9,7 @@ class ETS2SyncHelper::SaveSelector < Qt::GroupBox
 	def initialize(parent)
 		@parent = parent
 		super(MSG[:select_save], parent)
-		@lbl = ETS2SyncHelper::StatusLabel.new(self)
+		@lbl = StatusLabel.new(self)
 		@cbo = Qt::ComboBox.new(self)
 		connect(@cbo, SIGNAL("currentIndexChanged(int)"), self, SLOT("index_changed(int)"))
 		vbox = Qt::VBoxLayout.new

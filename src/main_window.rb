@@ -1,21 +1,4 @@
-require "Qt"
-require_relative "ets2"
-
-class ETS2SyncHelper < Qt::Widget ; end
-require_relative "config_dir_selector"
-require_relative "save_format_fixer"
-require_relative "profile_selector"
-require_relative "save_selector"
-require_relative "dlc_selector"
-require_relative "sync_widget"
-
-class Pathname
-	def to_win
-		to_s.gsub("/", "\\")
-	end
-end
-
-class ETS2SyncHelper < Qt::Widget
+class MainWindow < Qt::Widget
 	WIDTH = 550
 
 	attr_reader :ets2, :profile, :save, :dlcs

@@ -1,6 +1,4 @@
-require_relative("status_label")
-
-class ETS2SyncHelper::ConfigDirSelector < Qt::GroupBox
+class ConfigDirSelector < Qt::GroupBox
 	slots("select_clicked()", "dir_selected()", "config_dir_changed()", "restore_clicked()", "refresh_clicked()", "sync_changed()")
 	signals("changed(const QString &)")
 
@@ -13,7 +11,7 @@ class ETS2SyncHelper::ConfigDirSelector < Qt::GroupBox
 		super(MSG[:config_dir], parent)
 		@txt = Qt::LineEdit.new(ets2.config_dir.to_win, self)
 		@txt.read_only = true
-		@lbl = ETS2SyncHelper::StatusLabel.new(self)
+		@lbl = StatusLabel.new(self)
 		@btn_refresh = Qt::PushButton.new(MSG[:reload], self)
 		connect(@btn_refresh, SIGNAL("clicked()"), self, SLOT("refresh_clicked()"))
 		@btn_restore = Qt::PushButton.new(MSG[:restore], self)
