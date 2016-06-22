@@ -37,6 +37,8 @@ begin
 	APP_NAME = "ETS2Sync Helper"
 
 	app = Qt::Application.new(ARGV)
+	plugin_path = (Pathname(Gem::Specification.find_by_name("qtbindings-qt").gem_dir.encode("filesystem")) + "qtbin\\plugins".encode("filesystem")).to_win
+	app.add_library_path(plugin_path)
 	MainWindow.new
 	app.exec
 rescue Exception => e

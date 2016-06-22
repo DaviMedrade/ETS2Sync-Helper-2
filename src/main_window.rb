@@ -14,9 +14,7 @@ class MainWindow < Qt::Widget
 		@syncing = false
 		self.window_title = APP_NAME
 		self.fixed_width = WIDTH
-		icon = Qt::Icon.new
-		icon.add_file("res/icon_32.png", Qt::Size.new(32, 32))
-		icon.add_file("res/icon_16.png", Qt::Size.new(16, 16))
+		icon = Qt::Icon.new("res/app.ico")
 		self.window_icon = icon
 		populate_window
 		show
