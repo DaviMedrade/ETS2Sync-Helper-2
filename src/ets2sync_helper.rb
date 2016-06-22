@@ -5,6 +5,9 @@ begin
 	else
 		require_relative "lang/en.rb"
 	end
+	MSG.default_proc = proc do |h, k|
+		"## Missing: #{k}"
+	end
 
 	APP_NAME = "ETS2Sync Helper"
 	Dir.chdir(__dir__)
