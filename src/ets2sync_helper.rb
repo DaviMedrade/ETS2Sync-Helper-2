@@ -1,5 +1,16 @@
 begin
+	require "pathname"
+	APP_NAME = "ETS2Sync Helper"
+
 	Dir.chdir(__dir__)
+
+	module ETS2SyncHelper
+		if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/) && Pathname("lang/#{ARGV.first}.rb").file?
+			LANG = ARGV.first
+		else
+			LANG = "en"
+		end
+	end
 
 	trap("INT") do
 		exit(1)
@@ -10,6 +21,7 @@ begin
 	require "ets2"
 
 	require_relative "version"
+	require_relative "check_version"
 	require_relative "main_window"
 	require_relative "config_dir_selector"
 	require_relative "save_format_fixer"
@@ -18,6 +30,8 @@ begin
 	require_relative "dlc_selector"
 	require_relative "sync_widget"
 	require_relative "status_label"
+	require_relative "about_window"
+	require_relative "lang/#{ETS2SyncHelper::LANG}.rb"
 
 	class Pathname
 		def to_win
@@ -25,16 +39,9 @@ begin
 		end
 	end
 
-	if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/)
-		require_relative "lang/#{ARGV.first}"
-	else
-		require_relative "lang/en.rb"
-	end
 	MSG.default_proc = proc do |h, k|
 		"## Missing: #{k}"
 	end
-
-	APP_NAME = "ETS2Sync Helper"
 
 	app = Qt::Application.new(ARGV)
 	plugin_path = (Pathname(Gem::Specification.find_by_name("qtbindings-qt").gem_dir.encode("filesystem")) + "qtbin\\plugins".encode("filesystem")).to_win
