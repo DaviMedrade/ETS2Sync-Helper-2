@@ -3,6 +3,8 @@ require 'win32/registry'
 require 'openssl'
 require 'zlib'
 
+require 'sii'
+
 class ETS2
 	def self.default_config_dir
 		registry_path = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders"
@@ -192,9 +194,9 @@ class ETS2
 		end
 
 		def replace_jobs(new_jobs)
-			old_file = @dir + "game.sii.0"
+			save_file = @dir + "game.sii"
 			new_file = @dir + "game.sii.new.txt"
-			real_new_file = @dir + "game.sii"
+			backup_file = @dir + "game.backup.sii"
 			new_file_h = new_file.open("w")
 			exp_time = nil
 			city_jobs = nil
@@ -210,7 +212,7 @@ class ETS2
 				"ferry_price" => "0"
 			}
 			first_job = true
-			SII::File.read(old_file).each_line do |line|
+			SII::File.read(save_file).each_line do |line|
 				line.chomp!
 				loop do
 					unless line.match(/\s+#/)
@@ -262,7 +264,8 @@ class ETS2
 			end
 			new_file_h.close
 			new_file_h = nil
-			new_file.rename(real_new_file)
+			save_file.rename(backup_file)
+			new_file.rename(save_file)
 		ensure
 			new_file_h.close if new_file_h
 		end
@@ -276,7 +279,7 @@ class ETS2
 		end
 
 		def save_file?
-			@zero_file
+			@save_file
 		end
 
 		def ==(other)

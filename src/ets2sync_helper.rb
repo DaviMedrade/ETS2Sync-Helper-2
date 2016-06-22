@@ -1,4 +1,5 @@
 begin
+	$LOAD_PATH << __dir__+"/lib"
 	if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/)
 		require_relative "lang/#{ARGV.first}"
 	else
