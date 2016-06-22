@@ -42,7 +42,7 @@ class ETS2
 
 	def set_save_format(n)
 		process_save_format(change: true) do |line|
-			line[:prefix] + "\"3\""
+			line[:prefix] + "\"#{n}\""
 		end
 	end
 
