@@ -28,7 +28,7 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 		3. Confirme as mensagens.
 		4. Entre no jogo novamente.
 		5. Volte para o passo 1.
-	* “Nenhum save encontrado”/“*x* saves, nenhum é compatível” (*x* sendo um número qualquer):
+	* “Nenhum save encontrado”:
 		1. Clique em “Atualizar”.
 		2. Certifique-se de que o perfil correto está selecionado.
 		3. Volte para o passo 1.
@@ -39,33 +39,8 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 
 	Se as cargas não estão todas com o mesmo tempo para expirar, isso significa que a sincronização falhou. Normalmente isso acontece porque a pessoa esqueceu de carregar o save depois de sincronizar, ou que o save que foi carregado não é o que foi sincronizado (confira o perfil e o save selecionados no programa).
 
-## Como Sincronizar (Avançado)
-Manter o formato do save em 3 enquanto você dirige pode causar lags quando o jogo cria um autosave, o que seria especialmente problemático se você estiver em um comboio. Infelizmente, o formato padrão do jogo é um formato binário que o programa não consegue alterar para fazer a sincronização.
-
-Mudar o formato do save pelo arquivo de configuração não é eficiente porque exigiria sair do jogo e entrar novamente cada vez que ele for alterado. Felizmente o formato pode ser alterado pelo console do jogo.
-
-### Como ativar o console
-Pule esta etapa se o console já está ativado no seu jogo.
-
-1. Certifique-se de que o jogo está fechado. Editar arquivos de configuração do jogo com o jogo em execução não funciona.
-2. Na pasta do jogo em `Documentos`, abra o arquivo `config.cfg` em um editor de texto (e.g. Bloco de Notas).
-3. Localize as opções `g_developer` e `g_console` e mude o valor de ambas para `"1"`.
-
-Pronto. No jogo, para abrir e fechar o console pressione o apóstrofo (à esquerda da tecla 1). Para executar um comando no console, abra o console, digite o comando, e pressione Enter.
-
-### Mudando o formato do save em tempo real
-1. Antes de criar o save para sincronizar, execute o comando abaixo no console do jogo:
-
-	```
-	g_save_format 3
-	```
-2. Salve o jogo normalmente.
-3. Uma vez criado o save, execute o comando abaixo no console do jogo:
-
-	```
-	g_save_format 0
-	```
-4. Faça a sincronização normalmente usando o programa. O programa exibirá a mensagem “Formato do Save incorreto”, mas você pode ignorá-la.
+## Formato do Save
+Em versões anteriores, assim como quando sincronizando pelo site, era necessário manter o formato do save em 3 (ou 2). A partir da versão 3.0.0, o programa consegue ler um arquivo de save binário (i.e. um save criado com `g_save_format "0"`). Por esse motivo, não é necessário mudar o formato do save se já estiver em zero. Na verdade, se o formato do save estiver em 2 ou 3, podem ocorrer lags quando o jogo cria autosaves, então manter o formato do save em zero é recomendado.
 
 ## Bugs/Problemas
 Se você encontrar um problema no programa, informe no link abaixo:
