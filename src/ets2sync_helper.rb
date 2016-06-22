@@ -1,6 +1,10 @@
 begin
 	Dir.chdir(__dir__)
 
+	trap("INT") do
+		exit(1)
+	end
+
 	$LOAD_PATH << __dir__+"/lib"
 	require "Qt"
 	require "ets2"
