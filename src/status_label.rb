@@ -22,7 +22,7 @@ class StatusLabel < Qt::Label
 
 	def warning(str)
 		self.text = str
-		self.color = "#990"
+		self.color = "#da2" # goldenrod; thanks Wikipedia
 	end
 
 	def progress(str)
