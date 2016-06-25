@@ -2,7 +2,7 @@ MSGS[:en] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "English translation by <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_button: "About…",
-	about_title: "About #{APP_NAME}",
+	about_title: "About %s", # %s is the application name
 	about_author: "Created by <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_api: "Job list provided by <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — provided by <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",

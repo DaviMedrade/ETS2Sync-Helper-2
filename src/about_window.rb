@@ -5,7 +5,7 @@ class AboutWindow < Qt::Dialog
 
 	def initialize(parent)
 		super
-		self.window_title = MSG[:about_title]
+		self.window_title = MSG[:about_title] % APP_NAME
 		self.modal = true
 		self.window_flags = Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::DialogType | Qt::MSWindowsFixedSizeDialogHint
 
