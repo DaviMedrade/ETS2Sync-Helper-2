@@ -54,10 +54,10 @@ If you wish to run the app from its source code and/or help with its development
 
 1. Clone the repo.
 2. Install Ruby 2.2.x (http://rubyinstaller.org/).
-3. Install the gem `qtbindings`:
+3. Install the gems `qtbindings` and `parser`:
 
 	```
-	gem install qtbindings
+	gem install qtbindings parser
 	```
 4. If you wish to build a binary, install the gem `ocra`:
 
@@ -69,7 +69,8 @@ If you wish to run the app from its source code and/or help with its development
 	```
 	verbose en
 	```
-6. To generate a binary, run `build_exe.bat` passing the language as a parameter.
+6. If you added/changed language files, check if they are correct with `check_lang.bat`, passing the languages as a parameters (default: all languages). If there are problems, the script will show them, otherwise it will show the message `Language definitions OK`.
+7. To generate a binary, run `build_exe.bat` passing the language as a parameter.
 
 ### Gem `qtbindings` bug
 

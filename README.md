@@ -54,10 +54,10 @@ Se você deseja executar o programa a partir do código-fonte e/ou colaborar com
 
 1. Clone o repositório.
 2. Instale o Ruby 2.2.x (http://rubyinstaller.org/).
-3. Instale a gem `qtbindings`:
+3. Instale as gems `qtbindings` e `parser`:
 
 	```
-	gem install qtbindings
+	gem install qtbindings parser
 	```
 4. Se você deseja empacotar um executável, instale a gem `ocra`:
 
@@ -69,7 +69,8 @@ Se você deseja executar o programa a partir do código-fonte e/ou colaborar com
 	```
 	verbose pt-BR
 	```
-6. Para gerar um executável, execute `build_exe.bat`, passando o idioma como parâmetro.
+6. Se você adicionou/mudou arquivos de idiomas, verifique se estão corretos usando `check_lang.bat`, passando os idiomas como parâmetros (o padrão é verificar todos). Se houver problemas, o script mostrará quais são, se não ele mostrará a mensagem `Language definitions OK`.
+7. Para gerar um executável, execute `build_exe.bat`, passando o idioma como parâmetro.
 
 ### Bug na gem `qtbindings`
 
