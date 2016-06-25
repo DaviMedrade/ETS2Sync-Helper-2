@@ -57,13 +57,19 @@ sources.each do |source|
 end
 
 puts
+has_problems = false
 langs_to_check.each do |lang|
 	unref = MSGS[lang].keys - referenced_keys
 	if unref.any?
+		has_problems = true
 		puts "#{lang} has extra keys: #{unref.map(&:inspect).join(", ")}"
 	end
 	not_found = referenced_keys - MSGS[lang].keys
 	if not_found.any?
+		has_problems = true
 		puts "#{lang} doesn't have keys: #{not_found.map(&:inspect).join(", ")}"
 	end
+end
+unless has_problems
+	puts "Language definitions OK"
 end
