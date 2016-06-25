@@ -4,14 +4,6 @@ begin
 
 	Dir.chdir(__dir__)
 
-	module ETS2SyncHelper
-		if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/) && Pathname("lang/#{ARGV.first}.rb").file?
-			LANG = ARGV.first
-		else
-			LANG = "en"
-		end
-	end
-
 	trap("INT") do
 		exit(1)
 	end
@@ -19,6 +11,36 @@ begin
 	$LOAD_PATH << __dir__+"/lib"
 	require "Qt"
 	require "ets2"
+
+	MSGS = {}
+	Dir.glob("lang/*rb") do |f|
+		require_relative f
+	end
+
+	module ETS2SyncHelper
+		if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/) && MSGS.has_key?(ARGV.first.to_sym)
+			LANG = ARGV.first.to_sym
+		else
+			LANG = :en
+		end
+		::MSG = MSGS[ETS2SyncHelper::LANG]
+	end
+
+	if ENV["OCRA_EXECUTABLE"] && ETS2SyncHelper::LANG != :en
+		MSG.default_proc = proc do |h, k|
+			MSGS[:en][k]
+		end
+	else
+		MSG.default_proc = proc do |h, k|
+			"## Missing: #{k}"
+		end
+	end
+
+	class Pathname
+		def to_win
+			to_s.gsub("/", "\\")
+		end
+	end
 
 	require_relative "version"
 	require_relative "check_version"
@@ -31,17 +53,6 @@ begin
 	require_relative "sync_widget"
 	require_relative "status_label"
 	require_relative "about_window"
-	require_relative "lang/#{ETS2SyncHelper::LANG}.rb"
-
-	class Pathname
-		def to_win
-			to_s.gsub("/", "\\")
-		end
-	end
-
-	MSG.default_proc = proc do |h, k|
-		"## Missing: #{k}"
-	end
 
 	app = Qt::Application.new(ARGV)
 	plugin_path = (Pathname(Gem::Specification.find_by_name("qtbindings-qt").gem_dir.encode("filesystem")) + "qtbin\\plugins".encode("filesystem")).to_win

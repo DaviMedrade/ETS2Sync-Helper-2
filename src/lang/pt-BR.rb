@@ -1,4 +1,4 @@
-MSG = {
+MSGS[:"pt-BR"] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Traduzido para Português do Brasil por <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_button: "Sobre…",
