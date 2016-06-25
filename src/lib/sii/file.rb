@@ -4,7 +4,7 @@ require "zlib"
 
 module SII
 	module File
-		AES_KEY = "\x2a\x5f\xcb\x17\x91\xd2\x2f\xb6\x02\x45\xb3\xd8\x36\x9e\xd0\xb2\xc2\x73\x71\x56\x3f\xbf\x1f\x3c\x9e\xdf\x6b\x11\x82\x5a\x5d\x0a".force_encoding('BINARY')
+		AES_KEY = ["2a5fcb1791d22fb60245b3d8369ed0b2c27371563fbf1f3c9edf6b11825a5d0a"].pack("H64")
 
 		def self.read(file)
 			get_text(file.read(mode: "rb"))
