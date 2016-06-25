@@ -9,7 +9,7 @@ class ETS2
 	def self.default_config_dir
 		registry_path = "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders"
 		registry_key = Win32::Registry::HKEY_CURRENT_USER.open(registry_path)
-		Pathname((registry_key["Personal"] + "\\Euro Truck Simulator 2").encode("filesystem")).realpath
+		Pathname((registry_key["Personal"] + "\\Euro Truck Simulator 2").encode("filesystem"))
 	end
 
 	def self.display_time(time)
@@ -27,11 +27,16 @@ class ETS2
 	attr_reader :config_dir, :save_format, :save_format_line
 
 	def initialize(config_dir = ETS2.default_config_dir)
-		@config_dir = config_dir.realpath
-		@config_file = (@config_dir + "config.cfg")
-		@valid = @config_file.file? && (@config_dir + "profiles").directory?
-		process_save_format if @valid
-		@profiles = nil
+		if config_dir.directory?
+			@config_dir = config_dir.realpath
+			@config_file = (@config_dir + "config.cfg")
+			@valid = @config_file.file? && (@config_dir + "profiles").directory?
+			process_save_format if @valid
+			@profiles = nil
+		else
+			@config_dir = config_dir
+			@valid = false
+		end
 	end
 
 	def parse_save_format_line(line)
