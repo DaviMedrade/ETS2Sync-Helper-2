@@ -60,6 +60,7 @@ MSGS[:"pt-BR"] = {
 	receiving_list: "fazendo o download…",
 	error_downloading_list: "Erro ao fazer o download da lista de cargas.",
 	inserting_jobs: "Inserindo as cargas no save…",
+	outdated_client: "Sua versão do %s está desatualizada. Por favor, atualize.",
 	error_inserting_jobs: "Erro ao inserir as cargas no save.",
 	sync_ready: "Pronto para sincronizar.",
 	sync_complete: "Sincronização concluída."

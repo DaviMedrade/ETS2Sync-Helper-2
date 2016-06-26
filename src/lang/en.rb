@@ -60,6 +60,7 @@ MSGS[:en] = {
 	receiving_list: "downloading list…",
 	error_downloading_list: "Error downloading job list.",
 	inserting_jobs: "Inserting jobs into the save…",
+	outdated_client: "Your version of %s is too old. Please update.",
 	error_inserting_jobs: "Error inserting jobs into the save.",
 	sync_ready: "Ready to sync.",
 	sync_complete: "Sync complete."

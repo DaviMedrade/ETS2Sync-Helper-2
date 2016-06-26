@@ -67,6 +67,9 @@ class SyncWidget < Qt::GroupBox
 				http = Net::HTTP.start(jobs_uri.host, jobs_uri.port)
 				progress(status: "#{MSG[:downloading_job_list]} #{MSG[:sending_request]}")
 				http.request_get(jobs_uri) do |response|
+					if response.code == "426"
+						raise OutdatedClient
+					end
 					response.value
 					length = response['Content-Length'].to_f
 					progress(status: "#{MSG[:downloading_job_list]} #{MSG[:receiving_list]}")
@@ -81,6 +84,9 @@ class SyncWidget < Qt::GroupBox
 						end
 					end
 				end
+			rescue OutdatedClient
+				progress(status: MSG[:outdated_client] % APP_NAME, error: true, finished: true)
+				@jobs_data = nil
 			rescue Exception => e
 				progress(status: "#{MSG[:error_downloading_list]} #{e.class}: #{e.message}", error: true, finished: true)
 				@jobs_data = nil
@@ -140,4 +146,6 @@ class SyncWidget < Qt::GroupBox
 			@btn.enabled = true
 		end
 	end
+
+	class OutdatedClient < StandardError ; end
 end
