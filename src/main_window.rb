@@ -74,11 +74,11 @@ class MainWindow < Qt::Widget
 			msgbox.text = MSG[:new_version_prompt]
 			msgbox.icon = Qt::MessageBox::Information
 			if msgbox.exec == Qt::MessageBox::Yes
-				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper::DOWNLOAD_URL))
+				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper.get_uri(:download)))
 			end
 			lbl_update = Qt::Label.new("", self)
 			s = MSG[:new_version_available].dup
-			s << " <a href='#{ETS2SyncHelper::DOWNLOAD_URL}'>#{MSG[:open_website_prompt]}</a>"
+			s << " <a href='#{ETS2SyncHelper.get_uri(:download)}'>#{MSG[:open_website_prompt]}</a>"
 			lbl_update.text = s
 			lbl_update.text_interaction_flags = Qt::TextBrowserInteraction
 			lbl_update.open_external_links = true
