@@ -66,6 +66,9 @@ class SaveFormatFixer < Qt::GroupBox
 			when 2, 3
 				@lbl.warning(MSG[:save_format_not_recommended])
 				@btn_fix.enabled = true
+			when nil
+				@lbl.failure(MSG[:save_format_not_found])
+				@btn_fix.enabled = true
 			else
 				@lbl.failure(MSG[:save_format_unknown])
 				@btn_fix.enabled = true
