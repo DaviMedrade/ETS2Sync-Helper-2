@@ -43,7 +43,7 @@ class ConfigDirSelector < Qt::GroupBox
 		else
 			@btn_refresh.enabled = true
 			@btn_restore.enabled = (ets2.config_dir != ETS2.default_config_dir)
-			@btn_select.enabled = false
+			@btn_select.enabled = true
 		end
 	end
 
