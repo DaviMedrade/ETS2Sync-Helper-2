@@ -66,7 +66,7 @@ module SII
 			when :ushort
 				value == 0xFFFF ? "nil".freeze : value
 			when :float
-				value.to_i == value && value < 9_000_000 ? value.to_i : "&#{[value].pack("F".freeze).bytes.reverse.collect{|b| "%02x".freeze % b}.join}"
+				value.to_i == value && !value.infinite? && value < 9_000_000 ? value.to_i : "&#{[value].pack("F".freeze).bytes.reverse.collect{|b| "%02x".freeze % b}.join}"
 			when :float_quad
 				needs_wrap = true
 				"#{dump_value(:float, value.first)}; #{dump_value(:float_triple, value[1..-1], wrap: false)}"
