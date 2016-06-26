@@ -90,19 +90,7 @@ class SyncWidget < Qt::GroupBox
 			if @jobs_data
 				begin
 					p = progress(status: MSG[:inserting_jobs], percent: nil)
-					data = JSON.parse(@jobs_data)
-					jobs = {}
-					data.each do |job|
-						k = "#{job["company"]}.#{job["city"]}"
-						next unless job["dlc_city"] == "none" || p[:dlcs].include?(job["dlc_city"])
-						next unless job["dlc_cargo"] == "none" || p[:dlcs].include?(job["dlc_cargo"])
-						if job["company"] == "volvo_dlr" || job["company"] == "scania_dlr" || job["target_company"] == "volvo_dlr" || job["target_city"] == "scania_dlr"
-							next unless p[:dlcs].include?("north")
-						end
-						jobs[k] ||= []
-						jobs[k] << job
-					end
-					p[:save].replace_jobs(jobs)
+					p[:save].replace_jobs(JSON.parse(@jobs_data))
 					progress(error: false, finished: true)
 				rescue Exception => e
 					if e.is_a?(JSON::ParserError)
