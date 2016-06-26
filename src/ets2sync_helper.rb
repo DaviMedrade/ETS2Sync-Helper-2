@@ -84,7 +84,9 @@ begin
 	MainWindow.new
 	app.exec
 rescue Exception => e
-	unless e.is_a?(SystemExit)
+	if e.is_a?(SystemExit)
+		raise
+	else
 		msg = ["ETS2Sync Helper crashed...\n\nError details:"]
 		msg << "#{e.class} - #{e.message}"
 		msg += e.backtrace

@@ -21,18 +21,16 @@ class MainWindow < Qt::Widget
 		self.fixed_height = self.height
 		center
 	rescue Exception => e
-		unless e.is_a?(SystemExit)
-			if STDOUT.tty?
-				fail
-			else
-				msgbox = Qt::MessageBox.new
-				msgbox.standard_buttons = Qt::MessageBox::Ok
-				msgbox.window_title = MSG[:error]
-				msgbox.window_icon = self.window_icon
-				msgbox.text = "#{e.class}: #{e.message}"
-				msgbox.icon = Qt::MessageBox::Critical
-				msgbox.exec
-			end
+		if e.is_a?(SystemExit) || STDOUT.tty?
+			fail
+		else
+			msgbox = Qt::MessageBox.new
+			msgbox.standard_buttons = Qt::MessageBox::Ok
+			msgbox.window_title = MSG[:error]
+			msgbox.window_icon = self.window_icon
+			msgbox.text = "#{e.class}: #{e.message}"
+			msgbox.icon = Qt::MessageBox::Critical
+			msgbox.exec
 			exit(1)
 		end
 	end
