@@ -38,7 +38,7 @@ begin
 			when :website
 				"#{WEBSITE_BASE_URL}?#{query_string}"
 			when :website_show
-				WEBSITE_URL
+				WEBSITE_BASE_URL
 			when :check_version
 				"#{WEBSITE_BASE_APP_URL}check_version?#{query_string}"
 			when :download
