@@ -21,18 +21,20 @@ class MainWindow < Qt::Widget
 		self.fixed_height = self.height
 		center
 	rescue Exception => e
-		if STDOUT.tty?
-			fail
-		else
-			msgbox = Qt::MessageBox.new
-			msgbox.standard_buttons = Qt::MessageBox::Ok
-			msgbox.window_title = MSG[:error]
-			msgbox.window_icon = self.window_icon
-			msgbox.text = "#{e.class}: #{e.message}"
-			msgbox.icon = Qt::MessageBox::Critical
-			msgbox.exec
+		unless e.is_a?(SystemExit)
+			if STDOUT.tty?
+				fail
+			else
+				msgbox = Qt::MessageBox.new
+				msgbox.standard_buttons = Qt::MessageBox::Ok
+				msgbox.window_title = MSG[:error]
+				msgbox.window_icon = self.window_icon
+				msgbox.text = "#{e.class}: #{e.message}"
+				msgbox.icon = Qt::MessageBox::Critical
+				msgbox.exec
+			end
+			exit(1)
 		end
-		exit(1)
 	end
 
 	def populate_window
