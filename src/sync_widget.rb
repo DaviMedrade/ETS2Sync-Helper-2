@@ -88,6 +88,16 @@ class SyncWidget < Qt::GroupBox
 				progress(status: MSG[:outdated_client] % APP_NAME, error: true, finished: true)
 				@jobs_data = nil
 			rescue Exception => e
+				if e.is_a?(SystemExit)
+					fail
+				end
+				unless e.is_a?(Timeout::Error) || e.is_a?(Net::HTTPBadResponse) || e.is_a?(Net::HTTPHeaderSyntaxError) || e.is_a?(Net::ProtocolError)
+					msg = ["ETS2Sync Helper crashed...\n\nError details:"]
+					msg << "#{e.class} - #{e.message}"
+					msg += e.backtrace
+					File.write("error.log", msg.join("\n")+"\n\n")
+					system("start", "cmd", "/c", "COLOR 0A & TYPE error.log & PAUSE")
+				end
 				progress(status: "#{MSG[:error_downloading_list]} #{e.class}: #{e.message}", error: true, finished: true)
 				@jobs_data = nil
 			ensure
@@ -99,6 +109,14 @@ class SyncWidget < Qt::GroupBox
 					p[:save].replace_jobs(JSON.parse(@jobs_data))
 					progress(error: false, finished: true)
 				rescue Exception => e
+					if e.is_a?(SystemExit)
+						fail
+					end
+					msg = ["ETS2Sync Helper crashed...\n\nError details:"]
+					msg << "#{e.class} - #{e.message}"
+					msg += e.backtrace
+					File.write("error.log", msg.join("\n")+"\n\n")
+					system("start", "cmd", "/c", "COLOR 0A & TYPE error.log & PAUSE")
 					if e.is_a?(JSON::ParserError)
 						msg = @jobs_data
 					else
