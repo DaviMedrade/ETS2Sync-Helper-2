@@ -34,7 +34,7 @@ MSGS[:"pt-BR"] = {
 	are_you_sure: "Prosseguir?",
 	save_format: "Formato do Save",
 	save_format_not_recommended: "O formado recomendado é \"0\".",
-	save_format_unknown: "Formato não reconhecodo. Recomendado: \"0\".",
+	save_format_unknown: "Formato não reconhecido. Recomendado: \"0\".",
 	fix_save_format: "Corrigir…",
 	fix_save_format_prompt: "Isto não vai funcionar se o jogo estiver aberto.",
 	save_format_changed: "O Formato do Save foi alterado com sucesso.",
