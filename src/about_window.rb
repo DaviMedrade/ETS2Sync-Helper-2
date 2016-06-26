@@ -50,7 +50,7 @@ class AboutWindow < Qt::Dialog
 		hbox_check_version.add_widget(@btn_check_version, 1, Qt::AlignRight)
 		vbox_info.add_layout(hbox_check_version)
 
-		lbl_website = Qt::Label.new(MSG[:about_website] % "<a href='http://sync.dsantosdev.com/?v=#{ETS2SyncHelper::VERSION}&hl=#{ETS2SyncHelper::LANG}'>http://sync.dsantosdev.com/</a>", self)
+		lbl_website = Qt::Label.new(MSG[:about_website] % "<a href='#{ETS2SyncHelper.get_uri(:website)}'>#{ETS2SyncHelper.get_uri(:website_show)}</a>", self)
 		lbl_website.text_interaction_flags = Qt::TextBrowserInteraction
 		lbl_website.open_external_links = true
 		vbox_info.add_widget(lbl_website)

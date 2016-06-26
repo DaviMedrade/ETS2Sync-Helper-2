@@ -1,5 +1,6 @@
 begin
 	require "pathname"
+	require "net/http"
 	APP_NAME = "ETS2Sync Helper"
 
 	Dir.chdir(__dir__)
@@ -17,13 +18,37 @@ begin
 		require_relative f
 	end
 
+	require_relative "version"
 	module ETS2SyncHelper
+		WEBSITE_BASE_URL = "http://sync.dsantosdev.com/"
+		WEBSITE_BASE_APP_URL = "#{WEBSITE_BASE_URL}/app#{"-test" unless ENV["OCRA_EXECUTABLE"]}/"
+
 		if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/) && MSGS.has_key?(ARGV.first.to_sym)
 			LANG = ARGV.first.to_sym
 		else
 			LANG = :en
 		end
 		::MSG = MSGS[ETS2SyncHelper::LANG]
+
+		def self.get_uri(type, extra_args = {})
+			args = extra_args.merge({v: VERSION, hl: LANG})
+			query_string = URI.encode_www_form(args)
+
+			url = case type
+			when :website
+				"#{WEBSITE_BASE_URL}?#{query_string}"
+			when :website_show
+				WEBSITE_URL
+			when :check_version
+				"#{WEBSITE_BASE_APP_URL}check_version?#{query_string}"
+			when :download
+				"#{WEBSITE_BASE_APP_URL}new_version?#{query_string}"
+			when :sync
+				"#{WEBSITE_BASE_APP_URL}sync?#{query_string}"
+			end
+
+			URI(url)
+		end
 	end
 
 	if ENV["OCRA_EXECUTABLE"] && ETS2SyncHelper::LANG != :en
@@ -42,7 +67,6 @@ begin
 		end
 	end
 
-	require_relative "version"
 	require_relative "check_version"
 	require_relative "main_window"
 	require_relative "config_dir_selector"

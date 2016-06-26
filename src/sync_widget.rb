@@ -5,7 +5,6 @@ class SyncWidget < Qt::GroupBox
 	signals("syncing(bool)")
 	slots("save_changed()", "sync_clicked()", "update_progress()")
 
-	JOBS_URL = "http://sync.dsantosdev.com/app/sync?v=#{ETS2SyncHelper::VERSION}&hl=#{ETS2SyncHelper::LANG}&dlcs=%s"
 	PROGRESS_MUTEX = Mutex.new
 
 	def save
@@ -64,7 +63,7 @@ class SyncWidget < Qt::GroupBox
 				http = nil
 				@jobs_data = ""
 				p = progress(status: "#{MSG[:downloading_job_list]} #{MSG[:connecting]}", error: false, finished: false, percent: nil)
-				jobs_uri = URI(JOBS_URL % p[:dlcs].join(","))
+				jobs_uri = ETS2SyncHelper.get_uri(:sync, {dlcs: p[:dlcs].join(",")})
 				http = Net::HTTP.start(jobs_uri.host, jobs_uri.port)
 				progress(status: "#{MSG[:downloading_job_list]} #{MSG[:sending_request]}")
 				http.request_get(jobs_uri) do |response|
