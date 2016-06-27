@@ -74,7 +74,7 @@ class MainWindow < Qt::Widget
 			msgbox.text = MSG[:new_version_prompt]
 			msgbox.icon = Qt::MessageBox::Information
 			if msgbox.exec == Qt::MessageBox::Yes
-				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper.get_uri(:download)))
+				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper.get_uri(:download).to_s))
 			end
 			lbl_update = Qt::Label.new("", self)
 			s = MSG[:new_version_available].dup
