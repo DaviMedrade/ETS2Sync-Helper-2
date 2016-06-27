@@ -68,6 +68,7 @@ begin
 	end
 
 	require_relative "check_version"
+	require_relative "settings_file"
 	require_relative "main_window"
 	require_relative "config_dir_selector"
 	require_relative "save_format_fixer"

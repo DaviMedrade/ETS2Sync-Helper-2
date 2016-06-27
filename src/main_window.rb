@@ -8,7 +8,7 @@ class MainWindow < Qt::Widget
 
 	def initialize
 		super
-		@ets2 = ETS2.new
+		@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
 		@profile = nil
 		@save = nil
 		@syncing = false
@@ -134,7 +134,10 @@ class MainWindow < Qt::Widget
 	end
 
 	def dir_selected(dir)
-		@ets2 = ETS2.new(Pathname(dir.force_encoding("UTF-8").encode("filesystem")))
+		dir = dir.force_encoding("UTF-8").encode("filesystem")
+		ETS2SyncHelper.settings[:ets2_dir] = Pathname(Pathname(dir).to_win)
+		ETS2SyncHelper.save_settings
+		@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
 		emit config_dir_changed
 	end
 
