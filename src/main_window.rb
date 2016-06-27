@@ -66,16 +66,19 @@ class MainWindow < Qt::Widget
 		btn_about = Qt::PushButton.new(MSG[:about_button], self)
 		connect(btn_about, SIGNAL("clicked()"), self, SLOT("show_about()"))
 		hbox_close.add_widget(btn_about)
-		if new_version_available?
-			msgbox = Qt::MessageBox.new
-			msgbox.standard_buttons = Qt::MessageBox::Yes | Qt::MessageBox::No
-			msgbox.window_title = APP_NAME
-			msgbox.window_icon = self.window_icon
-			msgbox.text = MSG[:new_version_prompt]
-			msgbox.icon = Qt::MessageBox::Information
-			if msgbox.exec == Qt::MessageBox::Yes
-				Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper.get_uri(:download).to_s))
-				exit(0)
+		v = new_version_available?
+		if v
+			if v == true
+				msgbox = Qt::MessageBox.new
+				msgbox.standard_buttons = Qt::MessageBox::Yes | Qt::MessageBox::No
+				msgbox.window_title = APP_NAME
+				msgbox.window_icon = self.window_icon
+				msgbox.text = MSG[:new_version_prompt]
+				msgbox.icon = Qt::MessageBox::Information
+				if msgbox.exec == Qt::MessageBox::Yes
+					Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper.get_uri(:download).to_s))
+					exit(0)
+				end
 			end
 			lbl_update = Qt::Label.new("", self)
 			s = MSG[:new_version_available].dup
@@ -119,6 +122,7 @@ class MainWindow < Qt::Widget
 		dialog.dispose
 		return false if @check_data == "current"
 		return true if @check_data == "outdated"
+		return :bugfix if @check_data == "bugfix"
 		msgbox = Qt::MessageBox.new
 		msgbox.window_icon = self.window_icon
 		msgbox.standard_buttons = Qt::MessageBox::Ok
