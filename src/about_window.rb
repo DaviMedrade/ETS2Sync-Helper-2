@@ -151,7 +151,7 @@ class AboutWindow < Qt::Dialog
 					msgbox.text = MSG[:new_version_prompt]
 					msgbox.icon = Qt::MessageBox::Information
 					if msgbox.exec == Qt::MessageBox::Yes
-						Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper::DOWNLOAD_URL))
+						Qt::DesktopServices.open_url(Qt::Url.new(ETS2SyncHelper.get_uri(:download)))
 					end
 				else
 					@lbl_check_status.failure MSG[:check_error]
