@@ -1,4 +1,4 @@
-MSGS[:en] = {
+ETS2SyncHelper::MSGS[:en] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "English translation by <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_button: "About…",
@@ -24,6 +24,8 @@ MSGS[:en] = {
 	new_version_prompt: "A newer version is available. Do you want to open the website?",
 	up_to_date: "Your version is up to date.",
 	open_website_prompt: "Open website.",
+	language_menu: "Language",
+	this_language: "English", # The name of this language, in the language itself
 	config_dir: "ETS2 Settings Folder",
 	reload: "Reload",
 	restore: "Restore Default…",

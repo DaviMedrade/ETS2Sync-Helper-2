@@ -19,25 +19,33 @@ begin
 	require "Qt"
 	require "ets2"
 
-	MSGS = {}
-	Dir.glob("lang/*rb") do |f|
-		require_relative f
-	end
-
 	require_relative "version"
 	module ETS2SyncHelper
 		WEBSITE_BASE_URL = "http://sync.dsantosdev.com/"
 		WEBSITE_BASE_APP_URL = "#{WEBSITE_BASE_URL}/app#{"-test" unless ENV["OCRA_EXECUTABLE"]}/"
 
-		if ARGV.first && ARGV.first.match(/^[a-z]{2}(?:-[A-Z]{2})?$/) && MSGS.has_key?(ARGV.first.to_sym)
-			LANG = ARGV.first.to_sym
-		else
-			LANG = :en
+		def self.language ; @settings[:language] ; end
+
+		MSGS = {}
+		MSG = {}
+		Dir.glob("lang/*rb") do |f|
+			require_relative f
 		end
-		::MSG = MSGS[ETS2SyncHelper::LANG]
+
+		MSG.default_proc = proc do |h, k|
+			if MSGS.has_key?(self.language) && MSGS[self.language].has_key?(k)
+				MSGS[self.language][k]
+			else
+				if ENV["OCRA_EXECUTABLE"] && self.language != :en && MSGS[:en].has_key?(k)
+					MSGS[:en][k]
+				else
+					"## Missing: #{k}"
+				end
+			end
+		end
 
 		def self.get_uri(type, extra_args = {})
-			args = extra_args.merge({v: VERSION, hl: LANG})
+			args = extra_args.merge({v: VERSION, hl: language})
 			query_string = URI.encode_www_form(args)
 
 			url = case type
@@ -57,15 +65,7 @@ begin
 		end
 	end
 
-	if ENV["OCRA_EXECUTABLE"] && ETS2SyncHelper::LANG != :en
-		MSG.default_proc = proc do |h, k|
-			MSGS[:en][k]
-		end
-	else
-		MSG.default_proc = proc do |h, k|
-			"## Missing: #{k}"
-		end
-	end
+	MSG = ETS2SyncHelper::MSG
 
 	require_relative "check_version"
 	require_relative "settings_file"

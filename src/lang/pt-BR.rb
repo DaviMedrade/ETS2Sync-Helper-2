@@ -1,4 +1,4 @@
-MSGS[:"pt-BR"] = {
+ETS2SyncHelper::MSGS[:"pt-BR"] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Traduzido para Português do Brasil por <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_button: "Sobre…",
@@ -24,6 +24,8 @@ MSGS[:"pt-BR"] = {
 	new_version_prompt: "Uma nova versão está disponível. Deseja abrir o site?",
 	up_to_date: "Sua versão está atualizada.",
 	open_website_prompt: "Abrir o site.",
+	language_menu: "Idioma",
+	this_language: "Português do Brasil", # The name of this language, in the language itself
 	config_dir: "Pasta de Configuração do ETS2",
 	reload: "Atualizar",
 	restore: "Restaurar Padrão…",
