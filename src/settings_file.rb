@@ -11,11 +11,19 @@ module ETS2SyncHelper
 		Pathname((dir + "\\ETS2SyncHelper\\settings.json").encode("filesystem"))
 	end
 
+	def self.system_language
+		if Qt::Locale.system.ui_languages.any? && Qt::Locale.system.ui_languages.first.match(/\A[a-z]{2}(?:-[A-Z]{2})?\z/)
+			Qt::Locale.system.ui_languages.first.to_sym
+		else
+			:en
+		end
+	end
+
 	def self.load_settings
 		file = settings_file
 		default = {
 			ets2_dir: ETS2.default_config_dir,
-			language: :en
+			language: system_language
 		}
 		@settings = default
 		if file.file?
@@ -25,8 +33,6 @@ module ETS2SyncHelper
 			end
 			if data.has_key?("language") && data["language"].is_a?(String) && data["language"].match(/\A[a-z]{2}(?:-[A-Z]{2})?\z/)
 				@settings[:language] = data["language"].to_sym
-			elsif Qt::Locale.system.ui_languages.any? && Qt::Locale.system.ui_languages.first.match(/\A[a-z]{2}(?:-[A-Z]{2})?\z/)
-				@settings[:language] = Qt::Locale.system.ui_languages.first.to_sym
 			end
 		end
 		return @settings
