@@ -32,20 +32,26 @@ end
 
 Dir.chdir("script")
 
-langs_to_check = ARGV.dup
-if langs_to_check.empty?
-	langs_to_check = []
-	Dir.glob("../src/lang/*rb").each do |f|
-		m = f.match(/lang\/([a-z]{2}(?:-[A-Z]{2})?)\.rb/)
-		langs_to_check << m[1]
+module ETS2SyncHelper
+	MSGS = {}
+	MSG = {}
+
+	def self.langs_to_check ; @langs_to_check ; end
+
+	@langs_to_check = ARGV.dup
+	if @langs_to_check.empty?
+		@langs_to_check = []
+		Dir.glob("../src/lang/*rb").each do |f|
+			m = f.match(/lang\/([a-z]{2}(?:-[A-Z]{2})?)\.rb/)
+			@langs_to_check << m[1].to_sym
+		end
+	end
+	Dir.glob("../src/lang/{#{@langs_to_check.join(",")}}.rb").each do |f|
+		puts "Requiring #{relative_path(f)}"
+		require_relative f
 	end
 end
-langs_to_check.collect!{|lang| lang.to_sym }
-MSGS = {}
-Dir.glob("../src/lang/{#{langs_to_check.join(",")}}.rb").each do |f|
-	puts "Requiring #{relative_path(f)}"
-	require_relative f
-end
+MSGS = ETS2SyncHelper::MSGS
 
 sources = Dir.glob("../src/**/*rb")
 sources.reject!{|f| f.include?("lang/")}
@@ -58,8 +64,9 @@ end
 
 puts
 has_problems = false
-langs_to_check.each do |lang|
+ETS2SyncHelper.langs_to_check.each do |lang|
 	unref = MSGS[lang].keys - referenced_keys
+	unref.delete(:this_language) # this key is used differently
 	if unref.any?
 		has_problems = true
 		puts "#{lang} has extra keys: #{unref.map(&:inspect).join(", ")}"
