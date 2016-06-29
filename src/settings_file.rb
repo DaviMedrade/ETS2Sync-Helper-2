@@ -25,6 +25,8 @@ module ETS2SyncHelper
 			end
 			if data.has_key?("language") && data["language"].is_a?(String) && data["language"].match(/\A[a-z]{2}(?:-[A-Z]{2})?\z/)
 				@settings[:language] = data["language"].to_sym
+			elsif Qt::Locale.system.ui_languages.any? && Qt::Locale.system.ui_languages.first.match(/\A[a-z]{2}(?:-[A-Z]{2})?\z/)
+				@settings[:language] = Qt::Locale.system.ui_languages.first.to_sym
 			end
 		end
 		return @settings
