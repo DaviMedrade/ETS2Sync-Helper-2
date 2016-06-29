@@ -32,7 +32,7 @@ MSGS[:de] = {
 	config_dir_invalid: "Ungültige einstellungen ordner.",
 	restore_prompt: "konfigurationsverzeichnis es wird auf den Standardwert wieder hergestellt werden.",
 	are_you_sure: "fortfahren?",
-	save_format: "Speichern Format",
+	save_format: "Speichern Format “save format”",
 	save_format_not_recommended: "Die empfohlene format speichern ist \"0\".",
 	save_format_unknown: "Das speichern format ist nicht bekannt. Der empfohlene ist: \"0\".",
 	save_format_not_found: "Das speichern format wurde nicht gefunden.",
