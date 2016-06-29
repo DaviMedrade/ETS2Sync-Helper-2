@@ -1,4 +1,4 @@
-class MainWindow < Qt::Widget
+class MainWindow < Qt::MainWindow
 	WIDTH = 550
 
 	attr_reader :ets2, :profile, :save, :dlcs
@@ -36,7 +36,9 @@ class MainWindow < Qt::Widget
 	end
 
 	def populate_window
-		vbox_main = Qt::VBoxLayout.new(self)
+		wgt_canvas = Qt::Widget.new(self)
+
+		vbox_main = Qt::VBoxLayout.new(wgt_canvas)
 
 		config_dir_selector = ConfigDirSelector.new(self)
 		connect(config_dir_selector, SIGNAL("changed(const QString &)"), self, SLOT("dir_selected(const QString &)"))
@@ -96,7 +98,7 @@ class MainWindow < Qt::Widget
 		# Kickstart the updates
 		emit config_dir_changed
 
-		self.layout = vbox_main
+		set_central_widget(wgt_canvas)
 	end
 
 	def new_version_available?
