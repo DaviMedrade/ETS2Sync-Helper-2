@@ -3,6 +3,12 @@ begin
 	require "net/http"
 	APP_NAME = "ETS2Sync Helper"
 
+	class Pathname
+		def to_win
+			to_s.gsub("/", "\\")
+		end
+	end
+
 	Dir.chdir(__dir__)
 
 	trap("INT") do
@@ -58,12 +64,6 @@ begin
 	else
 		MSG.default_proc = proc do |h, k|
 			"## Missing: #{k}"
-		end
-	end
-
-	class Pathname
-		def to_win
-			to_s.gsub("/", "\\")
 		end
 	end
 
