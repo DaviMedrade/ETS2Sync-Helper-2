@@ -33,10 +33,17 @@ begin
 		end
 
 		MSG.default_proc = proc do |h, k|
-			if MSGS.has_key?(self.language) && MSGS[self.language].has_key?(k)
-				MSGS[self.language][k]
+			lang = self.language
+			unless MSGS.has_key?(lang)
+				lang_s = lang.to_s
+				if lang_s.include?("-")
+					lang = lang_s.partition("-").first.to_sym
+				end
+			end
+			if MSGS.has_key?(lang) && MSGS[lang].has_key?(k)
+				MSGS[lang][k]
 			else
-				if ENV["OCRA_EXECUTABLE"] && self.language != :en && MSGS[:en].has_key?(k)
+				if ENV["OCRA_EXECUTABLE"] && lang != :en && MSGS[:en].has_key?(k)
 					MSGS[:en][k]
 				else
 					"## Missing: #{k}"
