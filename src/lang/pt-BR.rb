@@ -26,6 +26,7 @@ ETS2SyncHelper::MSGS[:"pt-BR"] = {
 	open_website_prompt: "Abrir o site.",
 	language_menu: "Idioma",
 	this_language: "Português do Brasil", # The name of this language, in the language itself
+	about_to_restart: "O %s será reiniciado.",
 	config_dir: "Pasta de Configuração do ETS2",
 	reload: "Atualizar",
 	restore: "Restaurar Padrão…",

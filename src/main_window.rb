@@ -1,10 +1,10 @@
-class MainWindow < Qt::MainWindow
+class MainWindow < Qt::Widget
 	WIDTH = 550
 
 	attr_reader :ets2, :profile, :save, :dlcs
 
 	signals("config_dir_changed()", "save_format_changed()", "profile_changed()", "save_changed()", "dlcs_changed()", "sync_changed()")
-	slots("show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
+	slots("change_language()", "show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
 
 	def initialize
 		super
@@ -36,9 +36,24 @@ class MainWindow < Qt::MainWindow
 	end
 
 	def populate_window
-		wgt_canvas = Qt::Widget.new(self)
+		@menu_bar = Qt::MenuBar.new(self)
+		mnu_language = @menu_bar.add_menu(MSG[:language_menu])
+		current_lang = ETS2SyncHelper.effective_language_for(ETS2SyncHelper.language)
+		available_langs = ETS2SyncHelper.available_languages
+		agr_langs = Qt::ActionGroup.new(self)
+		available_langs.keys.sort.each do |lang|
+			lang_name = available_langs[lang]
+			action = Qt::Action.new(lang_name, self)
+			action.data = Qt::Variant.from_value(lang.to_s)
+			action.checkable = true
+			action.checked = (lang == current_lang)
+			action.action_group = agr_langs
+			connect(action, SIGNAL("triggered()"), self, SLOT("change_language()"))
+			mnu_language.add_action(action)
+		end
 
-		vbox_main = Qt::VBoxLayout.new(wgt_canvas)
+		vbox_main = Qt::VBoxLayout.new(self)
+		vbox_main.menu_bar = @menu_bar
 
 		config_dir_selector = ConfigDirSelector.new(self)
 		connect(config_dir_selector, SIGNAL("changed(const QString &)"), self, SLOT("dir_selected(const QString &)"))
@@ -97,8 +112,6 @@ class MainWindow < Qt::MainWindow
 
 		# Kickstart the updates
 		emit config_dir_changed
-
-		set_central_widget(wgt_canvas)
 	end
 
 	def new_version_available?
@@ -133,6 +146,24 @@ class MainWindow < Qt::MainWindow
 		msgbox.icon = Qt::MessageBox::Warning
 		msgbox.exec
 		exit(1)
+	end
+
+	def change_language
+		lang = sender.data.value.to_sym
+		ETS2SyncHelper.settings[:language] = lang
+		ETS2SyncHelper.save_settings
+		restart!
+	end
+
+	def restart!
+		msgbox = Qt::MessageBox.new
+		msgbox.window_icon = self.window_icon
+		msgbox.standard_buttons = Qt::MessageBox::Ok
+		msgbox.window_title = APP_NAME
+		msgbox.text = MSG[:about_to_restart] % APP_NAME
+		msgbox.icon = Qt::MessageBox::Information
+		msgbox.exec
+		ETS2SyncHelper.restart!
 	end
 
 	def show_about

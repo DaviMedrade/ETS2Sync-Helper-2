@@ -26,6 +26,7 @@ ETS2SyncHelper::MSGS[:en] = {
 	open_website_prompt: "Open website.",
 	language_menu: "Language",
 	this_language: "English", # The name of this language, in the language itself
+	about_to_restart: "%s will be restarted.",
 	config_dir: "ETS2 Settings Folder",
 	reload: "Reload",
 	restore: "Restore Default…",
