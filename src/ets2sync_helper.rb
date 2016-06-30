@@ -1,6 +1,7 @@
 begin
 	require "pathname"
 	require "net/http"
+	require "wdm"
 	APP_NAME = "ETS2Sync Helper"
 
 	class Pathname

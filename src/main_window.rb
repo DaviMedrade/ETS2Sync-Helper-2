@@ -114,6 +114,7 @@ class MainWindow < Qt::Widget
 
 		# Kickstart the updates
 		emit config_dir_changed
+		start_monitor
 
 		@tmr_ui = Qt::Timer.new(self)
 		connect(@tmr_ui, SIGNAL("timeout()"), self, SLOT("update_ui_timer()"))
@@ -121,7 +122,13 @@ class MainWindow < Qt::Widget
 	end
 
 	def update_ui_timer
-		emit update_ui
+		if @last_monitor_change_time && (Process.clock_gettime(Process::CLOCK_MONOTONIC) - @last_monitor_change_time) > 1.0
+			@last_monitor_change_time = nil
+			@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
+			emit config_dir_changed
+		else
+			emit update_ui
+		end
 	end
 
 	def new_version_available?
@@ -186,6 +193,22 @@ class MainWindow < Qt::Widget
 		ETS2SyncHelper.save_settings
 		@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
 		emit config_dir_changed
+		start_monitor
+	end
+
+	def start_monitor
+		if defined?(@monitor) && !@monitor.nil?
+			@monitor.stop
+		end
+		@monitor = WDM::Monitor.new
+		@last_monitor_change_time = nil
+		@monitor.watch_recursively(@ets2.config_dir.to_s, :default) do |change|
+			@last_monitor_change_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+		end
+		unless defined?(@monitor_exit_registered) && @monitor_exit_registered
+			Kernel.at_exit { @monitor.stop }
+		end
+		Thread.new { @monitor.run! }
 	end
 
 	def s_format_changed(success)
