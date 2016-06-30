@@ -1,5 +1,6 @@
 begin
 	require "pathname"
+	require "fileutils" # for when the settings dir doesn't exist
 	require "net/http"
 	gem "wdm"
 	require "wdm"
