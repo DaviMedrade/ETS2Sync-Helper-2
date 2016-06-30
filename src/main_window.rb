@@ -37,8 +37,8 @@ class MainWindow < Qt::Widget
 
 	def populate_window
 		@menu_bar = Qt::MenuBar.new(self)
-		mnu_language = @menu_bar.add_menu(MSG[:language_menu])
 		current_lang = ETS2SyncHelper.effective_language_for(ETS2SyncHelper.language)
+		mnu_language = @menu_bar.add_menu("#{MSG[:language_menu]}#{"/#{ETS2SyncHelper::MSGS[:en][:language_menu]}" unless current_lang == :en}")
 		available_langs = ETS2SyncHelper.available_languages
 		agr_langs = Qt::ActionGroup.new(self)
 		available_langs.keys.sort.each do |lang|
