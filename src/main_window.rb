@@ -197,9 +197,7 @@ class MainWindow < Qt::Widget
 	end
 
 	def start_monitor
-		if defined?(@monitor) && !@monitor.nil?
-			@monitor.stop
-		end
+		stop_monitor
 		@monitor = WDM::Monitor.new
 		@last_monitor_change_time = nil
 		@monitor.watch_recursively(@ets2.config_dir.to_s, :default) do |change|
@@ -207,8 +205,16 @@ class MainWindow < Qt::Widget
 		end
 		unless defined?(@monitor_exit_registered) && @monitor_exit_registered
 			Kernel.at_exit { @monitor.stop }
+			@monitor_exit_registered = true
 		end
 		Thread.new { @monitor.run! }
+	end
+
+	def stop_monitor
+		if defined?(@monitor) && !@monitor.nil?
+			@monitor.stop
+			@monitor = nil
+		end
 	end
 
 	def s_format_changed(success)
