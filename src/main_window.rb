@@ -3,8 +3,8 @@ class MainWindow < Qt::Widget
 
 	attr_reader :ets2, :profile, :save, :dlcs
 
-	signals("config_dir_changed()", "save_format_changed()", "profile_changed()", "save_changed()", "dlcs_changed()", "sync_changed()")
-	slots("change_language()", "show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
+	signals("update_ui()", "config_dir_changed()", "save_format_changed()", "profile_changed()", "save_changed()", "dlcs_changed()", "sync_changed()")
+	slots("update_ui_timer()", "change_language()", "show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
 
 	def initialize
 		super
@@ -114,6 +114,14 @@ class MainWindow < Qt::Widget
 
 		# Kickstart the updates
 		emit config_dir_changed
+
+		@tmr_ui = Qt::Timer.new(self)
+		connect(@tmr_ui, SIGNAL("timeout()"), self, SLOT("update_ui_timer()"))
+		@tmr_ui.start(1000)
+	end
+
+	def update_ui_timer
+		emit update_ui
 	end
 
 	def new_version_available?
