@@ -204,7 +204,7 @@ class MainWindow < Qt::Widget
 			@last_monitor_change_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 		end
 		unless defined?(@monitor_exit_registered) && @monitor_exit_registered
-			Kernel.at_exit { @monitor.stop }
+			Kernel.at_exit { @monitor.stop if @monitor }
 			@monitor_exit_registered = true
 		end
 		Thread.new { @monitor.run! }
