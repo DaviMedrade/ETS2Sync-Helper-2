@@ -1,9 +1,9 @@
-MSGS[:de] = {
+ETS2SyncHelper::MSGS[:de] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Deutsch Übersetzung von <a href='https://github.com/JhowDroid'>Jhonathan Ramos</a>.",
 	about_button: "Über…",
 	about_title: "Über %s", # %s is the application name
-	about_author: "Erstellt von <a href='https://github.com/JhowDroid'>Jhonathan Ramos</a>.",
+	about_author: "Erstellt von <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_api: "Jobliste zur verfügung gestellt von <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — zur verfügung gestellt von <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
 	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — zur verfügung gestellt von <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
