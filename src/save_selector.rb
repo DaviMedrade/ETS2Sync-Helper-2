@@ -1,5 +1,5 @@
 class SaveSelector < Qt::GroupBox
-	slots("profile_changed()", "index_changed(int)", "sync_changed()")
+	slots("profile_changed()", "index_changed(int)", "sync_changed()", "update_status()")
 	signals("changed(const QString &)")
 
 	def profile
@@ -18,6 +18,7 @@ class SaveSelector < Qt::GroupBox
 		set_layout(vbox)
 		connect(parent, SIGNAL("profile_changed()"), self, SLOT("profile_changed()"))
 		connect(parent, SIGNAL("sync_changed()"), self, SLOT("sync_changed()"))
+		connect(parent, SIGNAL("update_ui()"), self, SLOT("update_status()"))
 	end
 
 	def profile_changed
@@ -49,10 +50,18 @@ class SaveSelector < Qt::GroupBox
 		else
 			saves = []
 		end
-		emit @cbo.clear
 		prev_new_idx = 0
+		cbo_count = @cbo.count
 		saves.reverse_each.with_index do |save, idx|
-			@cbo.add_item(save.display_name, Qt::Variant.new(save.dir.to_s))
+			data = save.dir.to_s
+			if idx >= cbo_count
+				@cbo.add_item(save.display_name, Qt::Variant.new(data))
+			elsif @cbo.item_data(idx).value != data
+				@cbo.set_item_data(idx, Qt::Variant.new(data))
+				@cbo.set_item_text(idx, save.display_name)
+			else
+				@cbo.set_item_text(idx, save.display_name)
+			end
 			if save.dir == prev
 				prev_new_idx = idx
 			end
