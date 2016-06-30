@@ -208,6 +208,9 @@ class MainWindow < Qt::Widget
 			@monitor_exit_registered = true
 		end
 		Thread.new { @monitor.run! }
+	rescue WDM::InvalidDirectoryError
+		@monitor.stop
+		@monitor = nil
 	end
 
 	def stop_monitor
