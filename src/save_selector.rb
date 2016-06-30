@@ -34,8 +34,12 @@ class SaveSelector < Qt::GroupBox
 	end
 
 	def index_changed(new_index)
-		val = @cbo.item_data(@cbo.current_index).value.first
-		val = val.force_encoding("UTF-8").encode("filesystem") if val
+		if new_index == -1
+			val = nil
+		else
+			val = @cbo.item_data(@cbo.current_index).value.first
+			val = val.force_encoding("UTF-8").encode("filesystem") if val
+		end
 		emit changed(val)
 	end
 
@@ -64,7 +68,15 @@ class SaveSelector < Qt::GroupBox
 				@cbo.set_item_text(cbo_idx, save.display_name)
 			end
 		end
-		@cbo.current_index = 0 if has_new_save && saves.length > 0
+		@cbo.current_index = 0 if has_new_save && saves.any?
+		if saves.empty?
+			unless defined?(@emitted_empty_list) && @emitted_empty_list
+				index_changed(-1)
+				@emitted_empty_list = true
+			end
+		else
+			@emitted_empty_list = false
+		end
 		if profile.nil?
 			@lbl.failure("")
 		elsif saves.empty?
