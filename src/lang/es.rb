@@ -24,6 +24,9 @@ MSGS[:es] = {
 	new_version_prompt: "Una nueva versión está disponible. ¿Desea abrir la página web?",
 	up_to_date: "Su versión está atualizada.",
 	open_website_prompt: "Abrir la página web.",
+	language_menu: "Idioma",
+	this_language: "Español", # The name of this language, in the language itself
+	about_to_restart: "El %s se reiniciará.",
 	config_dir: "Directorio de configuración del ETS2",
 	reload: "Recargar",
 	restore: "Restaurar por defecto…",

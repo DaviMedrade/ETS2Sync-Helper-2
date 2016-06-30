@@ -24,6 +24,9 @@ MSGS[:de] = {
 	new_version_prompt: "Eine neuere version verfügbar. Wollen sie die website zu öffnen?",
 	up_to_date: "Ihre version aktualisiert wird.",
 	open_website_prompt: "Öffnen webseite.",
+	language_menu: "Sprache",
+	this_language: "Deutsch", # The name of this language, in the language itself
+	about_to_restart: "Das %s wird neu gestartet.",
 	config_dir: "Spiel konfigurationsverzeichnis",
 	reload: "Neu laden",
 	restore: "Standard wiederherstellen…",

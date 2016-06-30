@@ -24,6 +24,9 @@ MSGS[:"pt-PT"] = {
 	new_version_prompt: "Uma nova versão está disponível. Deseja abrir o site?",
 	up_to_date: "Sua versão está atualizada.",
 	open_website_prompt: "Abrir o site.",
+	language_menu: "Idioma",
+	this_language: "Português de Portugal", # The name of this language, in the language itself
+	about_to_restart: "O %s será reiniciado.",
 	config_dir: "Pasta de Configuração do ETS2",
 	reload: "Atualizar",
 	restore: "Restaurar Padrão…",
