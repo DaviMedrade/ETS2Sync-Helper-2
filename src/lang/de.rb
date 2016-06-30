@@ -1,9 +1,9 @@
-MSGS[:de] = {
+ETS2SyncHelper::MSGS[:de] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Deutsch Übersetzung von <a href='https://github.com/JhowDroid'>Jhonathan Ramos</a>.",
 	about_button: "Über…",
 	about_title: "Über %s", # %s is the application name
-	about_author: "Erstellt von <a href='https://github.com/JhowDroid'>Jhonathan Ramos</a>.",
+	about_author: "Erstellt von <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_api: "Jobliste zur verfügung gestellt von <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — zur verfügung gestellt von <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
 	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — zur verfügung gestellt von <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
@@ -28,7 +28,6 @@ MSGS[:de] = {
 	this_language: "Deutsch", # The name of this language, in the language itself
 	about_to_restart: "Das %s wird neu gestartet.",
 	config_dir: "Spiel konfigurationsverzeichnis",
-	reload: "Neu laden",
 	restore: "Standard wiederherstellen…",
 	choose: "Wählen…",
 	status_ok: "OK",
@@ -42,7 +41,7 @@ MSGS[:de] = {
 	fix_save_format: "Fix it!",
 	fix_save_format_prompt: "Dies wird wahrscheinlich nicht funktionieren, wenn das spiel läuft.",
 	save_format_change_failed: "Das speichern format Ändern fehlgeschlagen.",
-	save_format_change_failed_prompt: "bitte den wert von “g_save_format” in der “config.cfg” Datei in den Spieleinstellungen Ordner auf “3” und drücken Sie die “Neu laden” Taste.",
+	save_format_change_failed_prompt: "Bitte den wert von “g_save_format” in der “config.cfg” Datei in den Spieleinstellungen Ordner auf “0”.",
 	select_profile: "Wähle profil",
 	no_profiles: "Keine profil gefunden.",
 	one_profile: "1 profil.",

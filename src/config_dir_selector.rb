@@ -1,5 +1,5 @@
 class ConfigDirSelector < Qt::GroupBox
-	slots("select_clicked()", "dir_selected()", "config_dir_changed()", "restore_clicked()", "refresh_clicked()", "sync_changed()")
+	slots("select_clicked()", "dir_selected()", "config_dir_changed()", "restore_clicked()", "sync_changed()")
 	signals("changed(const QString &)")
 
 	def ets2
@@ -12,16 +12,13 @@ class ConfigDirSelector < Qt::GroupBox
 		@txt = Qt::LineEdit.new(ets2.config_dir.to_win, self)
 		@txt.read_only = true
 		@lbl = StatusLabel.new(self)
-		@btn_refresh = Qt::PushButton.new(MSG[:reload], self)
-		connect(@btn_refresh, SIGNAL("clicked()"), self, SLOT("refresh_clicked()"))
 		@btn_restore = Qt::PushButton.new(MSG[:restore], self)
 		connect(@btn_restore, SIGNAL("clicked()"), self, SLOT("restore_clicked()"))
 		@btn_select = Qt::PushButton.new(MSG[:choose], self)
 		connect(@btn_select, SIGNAL("clicked()"), self, SLOT("select_clicked()"))
 		hbox = Qt::HBoxLayout.new
 		hbox.add_widget(@lbl)
-		hbox.add_widget(@btn_refresh, 1, Qt::AlignRight)
-		hbox.add_widget(@btn_restore)
+		hbox.add_widget(@btn_restore, 1, Qt::AlignRight)
 		hbox.add_widget(@btn_select)
 		vbox = Qt::VBoxLayout.new
 		vbox.add_widget(@txt)
@@ -37,11 +34,9 @@ class ConfigDirSelector < Qt::GroupBox
 
 	def sync_changed
 		if parent.syncing?
-			@btn_refresh.enabled = false
 			@btn_restore.enabled = false
 			@btn_select.enabled = false
 		else
-			@btn_refresh.enabled = true
 			@btn_restore.enabled = (ets2.config_dir != ETS2.default_config_dir)
 			@btn_select.enabled = true
 		end
@@ -54,10 +49,6 @@ class ConfigDirSelector < Qt::GroupBox
 			@lbl.failure(MSG[:config_dir_invalid])
 		end
 		@btn_restore.enabled = (ets2.config_dir != ETS2.default_config_dir)
-	end
-
-	def refresh_clicked
-		set_selected_dir(ets2.config_dir.to_s)
 	end
 
 	def select_clicked

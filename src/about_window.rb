@@ -82,6 +82,11 @@ class AboutWindow < Qt::Dialog
 		lbl_qt.open_external_links = true
 		vbox_info.add_widget(lbl_qt)
 
+		lbl_icons = Qt::Label.new(MSG[:about_icons], self)
+		lbl_icons.text_interaction_flags = Qt::TextBrowserInteraction
+		lbl_icons.open_external_links = true
+		vbox_info.add_widget(lbl_icons)
+
 		hbox_main.add_layout(vbox_info)
 
 		vbox_main.add_layout(hbox_main)
@@ -122,6 +127,8 @@ class AboutWindow < Qt::Dialog
 						false
 					when "outdated"
 						true
+					when "bugfix"
+						:bugfix
 					else
 						data
 					end
@@ -143,7 +150,7 @@ class AboutWindow < Qt::Dialog
 				@lbl_check_icon.visible = false
 				if @has_new_version == false
 					@lbl_check_status.success MSG[:up_to_date]
-				elsif @has_new_version == true
+				elsif @has_new_version == true || @has_new_version == :bugfix
 					@lbl_check_status.failure(MSG[:new_version_available])
 					msgbox = Qt::MessageBox.new
 					msgbox.standard_buttons = Qt::MessageBox::Yes | Qt::MessageBox::No

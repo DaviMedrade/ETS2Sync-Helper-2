@@ -1,9 +1,9 @@
-MSGS[:es] = {
+ETS2SyncHelper::MSGS[:es] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Traducción al español por <a href='https://www.facebook.com/AnjodaNoiteAna'>Ana Pereira</a>.",
 	about_button: "Sobre…",
 	about_title: "Sobre el %s", # %s is the application name
-	about_author: "Criado por <a href='https://www.facebook.com/AnjodaNoiteAna'>Ana Pereira</a>.",
+	about_author: "Criado por <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_api: "Lista de trabajos proporcionada por <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — proporcionada por <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
 	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — proporcionada por <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
@@ -28,7 +28,6 @@ MSGS[:es] = {
 	this_language: "Español", # The name of this language, in the language itself
 	about_to_restart: "El %s se reiniciará.",
 	config_dir: "Directorio de configuración del ETS2",
-	reload: "Recargar",
 	restore: "Restaurar por defecto…",
 	choose: "Buscar…",
 	status_ok: "OK",
@@ -42,7 +41,7 @@ MSGS[:es] = {
 	fix_save_format: "Corregir…",
 	fix_save_format_prompt: "Esto no funcionará si el juego está abierto.",
 	save_format_change_failed: "La corrección del formato guardado “save format” falló.",
-	save_format_change_failed_prompt: "Por favor, cambie el valor de “g_save_format” en el archivo “config.cfg” en el directório de configuración de ETS a “3” y haga clic en el botón “Atualizar”.",
+	save_format_change_failed_prompt: "Por favor, cambie el valor de “g_save_format” en el archivo “config.cfg” en el directório de configuración de ETS a “0”.",
 	select_profile: "Seleccionar un perfil",
 	no_profiles: "No hay perfiles encontrados.",
 	one_profile: "1 perfil.",

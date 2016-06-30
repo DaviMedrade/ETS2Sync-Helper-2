@@ -6,11 +6,9 @@
 This app synchronizes the job list on Euro Truck Simulator 2, in order to make it easier to organize a convoy on Multiplayer.
 
 ## Download
-English:
-http://files.dsantosdev.com/ets2sync_helper_en.zip
+Languages: Brazilian Portuguese, European Portuguese, English, German, and Spanish.
 
-Brazilian Portuguese:
-http://files.dsantosdev.com/ets2sync_helper_pt-BR.zip
+http://files.dsantosdev.com/ets2sync_helper.zip
 
 ## Video Tutorial
 Portuguese audio, English subtitles (CC).
@@ -54,23 +52,19 @@ If you wish to run the app from its source code and/or help with its development
 
 1. Clone the repo.
 2. Install Ruby 2.2.x (http://rubyinstaller.org/).
-3. Install the gems `qtbindings` and `parser`:
+3. Install the gems `qtbindings`, `parser`, and `wdm`:
 
 	```
-	gem install qtbindings parser
+	gem install qtbindings parser wdm
 	```
 4. If you wish to build a binary, install the gem `ocra`:
 
 	```
 	gem install ocra
 	```
-5. Run `verbose.bat` or `no_console.bat` passing the language as a parameter to execute the app. E.g.:
-
-	```
-	verbose en
-	```
+5. Run the program with `verbose.bat` or `no_console.bat`.
 6. If you added/changed language files, check if they are correct with `check_lang.bat`, passing the languages as a parameters (default: all languages). If there are problems, the script will show them, otherwise it will show the message `Language definitions OK`.
-7. To generate a binary, run `build_exe.bat` passing the language as a parameter.
+7. To generate a binary, run `build_exe.bat`.
 
 ### Gem `qtbindings` bug
 

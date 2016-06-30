@@ -3,8 +3,8 @@ class MainWindow < Qt::Widget
 
 	attr_reader :ets2, :profile, :save, :dlcs
 
-	signals("config_dir_changed()", "save_format_changed()", "profile_changed()", "save_changed()", "dlcs_changed()", "sync_changed()")
-	slots("change_language()", "show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
+	signals("update_ui()", "config_dir_changed()", "save_format_changed()", "profile_changed()", "save_changed()", "dlcs_changed()", "sync_changed()")
+	slots("update_ui_timer()", "change_language()", "show_about()", "dir_selected(const QString &)", "s_format_changed(bool)", "profile_path_changed(const QString &)", "save_path_changed(const QString &)", "dlc_selection_changed(const QString &)", "syncing(bool)")
 
 	def initialize
 		super
@@ -37,8 +37,8 @@ class MainWindow < Qt::Widget
 
 	def populate_window
 		@menu_bar = Qt::MenuBar.new(self)
-		mnu_language = @menu_bar.add_menu(MSG[:language_menu])
 		current_lang = ETS2SyncHelper.effective_language_for(ETS2SyncHelper.language)
+		mnu_language = @menu_bar.add_menu("#{MSG[:language_menu]}#{"/#{ETS2SyncHelper::MSGS[:en][:language_menu]}" unless current_lang == :en}")
 		available_langs = ETS2SyncHelper.available_languages
 		agr_langs = Qt::ActionGroup.new(self)
 		available_langs.keys.sort.each do |lang|
@@ -48,9 +48,14 @@ class MainWindow < Qt::Widget
 			action.checkable = true
 			action.checked = (lang == current_lang)
 			action.action_group = agr_langs
+			action.icon = Qt::Icon.new("res/lang/#{lang}.png")
 			connect(action, SIGNAL("triggered()"), self, SLOT("change_language()"))
 			mnu_language.add_action(action)
 		end
+
+		act_about = Qt::Action.new(MSG[:about_button], self)
+		@menu_bar.add_action(act_about)
+		connect(act_about, SIGNAL("triggered()"), self, SLOT("show_about()"))
 
 		vbox_main = Qt::VBoxLayout.new(self)
 		vbox_main.menu_bar = @menu_bar
@@ -80,9 +85,6 @@ class MainWindow < Qt::Widget
 		vbox_main.add_widget(sync_widget, 1, Qt::AlignTop)
 
 		hbox_close = Qt::HBoxLayout.new
-		btn_about = Qt::PushButton.new(MSG[:about_button], self)
-		connect(btn_about, SIGNAL("clicked()"), self, SLOT("show_about()"))
-		hbox_close.add_widget(btn_about)
 		v = new_version_available?
 		if v
 			if v == true
@@ -112,6 +114,21 @@ class MainWindow < Qt::Widget
 
 		# Kickstart the updates
 		emit config_dir_changed
+		start_monitor
+
+		@tmr_ui = Qt::Timer.new(self)
+		connect(@tmr_ui, SIGNAL("timeout()"), self, SLOT("update_ui_timer()"))
+		@tmr_ui.start(1000)
+	end
+
+	def update_ui_timer
+		if @last_monitor_change_time && (Process.clock_gettime(Process::CLOCK_MONOTONIC) - @last_monitor_change_time) > 0.5
+			@last_monitor_change_time = nil
+			@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
+			emit config_dir_changed
+		else
+			emit update_ui
+		end
 	end
 
 	def new_version_available?
@@ -176,6 +193,31 @@ class MainWindow < Qt::Widget
 		ETS2SyncHelper.save_settings
 		@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
 		emit config_dir_changed
+		start_monitor
+	end
+
+	def start_monitor
+		stop_monitor
+		@monitor = WDM::Monitor.new
+		@last_monitor_change_time = nil
+		@monitor.watch_recursively(@ets2.config_dir.to_s, :default) do |change|
+			@last_monitor_change_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+		end
+		unless defined?(@monitor_exit_registered) && @monitor_exit_registered
+			Kernel.at_exit { @monitor.stop if @monitor }
+			@monitor_exit_registered = true
+		end
+		Thread.new { @monitor.run! }
+	rescue WDM::InvalidDirectoryError
+		@monitor.stop
+		@monitor = nil
+	end
+
+	def stop_monitor
+		if defined?(@monitor) && !@monitor.nil?
+			@monitor.stop
+			@monitor = nil
+		end
 	end
 
 	def s_format_changed(success)
@@ -212,6 +254,15 @@ class MainWindow < Qt::Widget
 	def syncing(bool)
 		@syncing = bool
 		@btn_close.enabled = !bool
+		@menu_bar.enabled = !bool
+		if bool
+			@tmr_ui.stop
+			stop_monitor
+		else
+			@tmr_ui.start(1000)
+			emit config_dir_changed
+			start_monitor
+		end
 		emit sync_changed
 	end
 

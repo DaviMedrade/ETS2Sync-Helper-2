@@ -1,5 +1,5 @@
 class SaveSelector < Qt::GroupBox
-	slots("profile_changed()", "index_changed(int)", "sync_changed()")
+	slots("profile_changed()", "index_changed(int)", "sync_changed()", "update_status()")
 	signals("changed(const QString &)")
 
 	def profile
@@ -18,6 +18,7 @@ class SaveSelector < Qt::GroupBox
 		set_layout(vbox)
 		connect(parent, SIGNAL("profile_changed()"), self, SLOT("profile_changed()"))
 		connect(parent, SIGNAL("sync_changed()"), self, SLOT("sync_changed()"))
+		connect(parent, SIGNAL("update_ui()"), self, SLOT("update_status()"))
 	end
 
 	def profile_changed
@@ -33,31 +34,49 @@ class SaveSelector < Qt::GroupBox
 	end
 
 	def index_changed(new_index)
-		val = @cbo.item_data(@cbo.current_index).value
-		val = val.force_encoding("UTF-8").encode("filesystem") if val
+		if new_index == -1
+			val = nil
+		else
+			val = @cbo.item_data(@cbo.current_index).value.first
+			val = val.force_encoding("UTF-8").encode("filesystem") if val
+		end
 		emit changed(val)
 	end
 
 	def update_status
-		item_data = @cbo.item_data(@cbo.current_index).value
-		if item_data
-			prev = Pathname(item_data.force_encoding("UTF-8").encode("filesystem"))
-		end
 		if profile
 			saves = profile.saves
 			saves.reject!(&:autosave?)
 		else
 			saves = []
 		end
-		emit @cbo.clear
-		prev_new_idx = 0
-		saves.reverse_each.with_index do |save, idx|
-			@cbo.add_item(save.display_name, Qt::Variant.new(save.dir.to_s))
-			if save.dir == prev
-				prev_new_idx = idx
+		while @cbo.count > saves.length
+			@cbo.removeItem(@cbo.count - 1)
+		end
+		has_new_save = false
+		saves.each.with_index do |save, idx|
+			cbo_idx = @cbo.count - 1 - idx
+			data = [save.dir.to_s, save.saved_at.to_i.to_s]
+			if cbo_idx < 0
+				has_new_save = true
+				@cbo.insert_item(0, save.display_name, Qt::Variant.new(data))
+			elsif @cbo.item_data(cbo_idx).value != data
+				has_new_save = true
+				@cbo.set_item_data(cbo_idx, Qt::Variant.new(data))
+				@cbo.set_item_text(cbo_idx, save.display_name)
+			else
+				@cbo.set_item_text(cbo_idx, save.display_name)
 			end
 		end
-		@cbo.current_index = prev_new_idx
+		@cbo.current_index = 0 if has_new_save && saves.any?
+		if saves.empty?
+			unless defined?(@emitted_empty_list) && @emitted_empty_list
+				index_changed(-1)
+				@emitted_empty_list = true
+			end
+		else
+			@emitted_empty_list = false
+		end
 		if profile.nil?
 			@lbl.failure("")
 		elsif saves.empty?

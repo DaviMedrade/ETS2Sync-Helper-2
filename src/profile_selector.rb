@@ -1,5 +1,5 @@
 class ProfileSelector < Qt::GroupBox
-	slots("config_dir_changed()", "index_changed(int)", "sync_changed()")
+	slots("config_dir_changed()", "index_changed(int)", "sync_changed()", "update_status()")
 	signals("changed(const QString &)")
 
 	def ets2
@@ -18,10 +18,12 @@ class ProfileSelector < Qt::GroupBox
 		set_layout(vbox)
 		connect(parent, SIGNAL("config_dir_changed()"), self, SLOT("config_dir_changed()"))
 		connect(parent, SIGNAL("sync_changed()"), self, SLOT("sync_changed()"))
+		connect(parent, SIGNAL("update_ui()"), self, SLOT("update_status()"))
 	end
 
 	def config_dir_changed
 		update_status
+		index_changed(@cbo.current_index)
 	end
 
 	def sync_changed
@@ -44,10 +46,21 @@ class ProfileSelector < Qt::GroupBox
 			prev = Pathname(item_data.force_encoding("UTF-8").encode("filesystem"))
 		end
 		profiles = ets2.profiles
-		emit @cbo.clear
 		prev_new_idx = 0
+		while @cbo.count > profiles.length
+			@cbo.removeItem(@cbo.count - 1)
+		end
+		cbo_count = @cbo.count
 		profiles.reverse_each.with_index do |profile, idx|
-			@cbo.add_item(profile.display_name, Qt::Variant.new(profile.dir.to_s))
+			data = profile.dir.to_s
+			if idx >= cbo_count
+				@cbo.add_item(profile.display_name, Qt::Variant.new(data))
+			elsif @cbo.item_data(idx).value != data
+				@cbo.set_item_data(idx, Qt::Variant.new(data))
+				@cbo.set_item_text(idx, profile.display_name)
+			else
+				@cbo.set_item_text(idx, profile.display_name)
+			end
 			if profile.dir == prev
 				prev_new_idx = idx
 			end
