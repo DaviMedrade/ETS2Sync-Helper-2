@@ -41,16 +41,13 @@ class SaveSelector < Qt::GroupBox
 
 	def update_status
 		item_data = @cbo.item_data(@cbo.current_index).value
-		if item_data
-			prev = Pathname(item_data.force_encoding("UTF-8").encode("filesystem"))
-		end
 		if profile
 			saves = profile.saves
 			saves.reject!(&:autosave?)
 		else
 			saves = []
 		end
-		prev_new_idx = 0
+		has_new_save = @cbo.count != saves.length
 		while @cbo.count > saves.length
 			@cbo.removeItem(@cbo.count - 1)
 		end
@@ -65,11 +62,8 @@ class SaveSelector < Qt::GroupBox
 			else
 				@cbo.set_item_text(idx, save.display_name)
 			end
-			if save.dir == prev
-				prev_new_idx = idx
-			end
 		end
-		@cbo.current_index = prev_new_idx
+		@cbo.current_index = 0 if has_new_save && saves.length > 0
 		if profile.nil?
 			@lbl.failure("")
 		elsif saves.empty?
