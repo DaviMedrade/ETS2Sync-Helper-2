@@ -54,10 +54,10 @@ Se você deseja executar o programa a partir do código-fonte e/ou colaborar com
 
 1. Clone o repositório.
 2. Instale o Ruby 2.2.x (http://rubyinstaller.org/).
-3. Instale as gems `qtbindings` e `parser`:
+3. Instale as gems `qtbindings`, `parser` e `wdm`:
 
 	```
-	gem install qtbindings parser
+	gem install qtbindings parser wdm
 	```
 4. Se você deseja empacotar um executável, instale a gem `ocra`:
 
