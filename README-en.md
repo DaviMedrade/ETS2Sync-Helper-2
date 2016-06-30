@@ -7,6 +7,7 @@ This app synchronizes the job list on Euro Truck Simulator 2, in order to make i
 
 ## Download
 Languages: Brazilian Portuguese, European Portuguese, English, German, and Spanish.
+
 http://files.dsantosdev.com/ets2sync_helper.zip
 
 ## Video Tutorial
