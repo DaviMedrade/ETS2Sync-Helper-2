@@ -42,7 +42,7 @@ ETS2SyncHelper::MSGS[:pt] = {
 	fix_save_format: "Corrigir…",
 	fix_save_format_prompt: "Isto não vai funcionar se o jogo estiver aberto.",
 	save_format_change_failed: "A correção do Formato do Save falhou.",
-	save_format_change_failed_prompt: "Por favor, modifique o valor do “g_save_format” no arquivo “config.cfg” na pasta de configuração do ETS2 para “3” e clique no botão “Atualizar”.",
+	save_format_change_failed_prompt: "Por favor, modifique o valor do “g_save_format” no arquivo “config.cfg” na pasta de configuração do ETS2 para “0”.",
 	select_profile: "Selecione o Perfil",
 	no_profiles: "Nenhum perfil encontrado.",
 	one_profile: "1 perfil.",
