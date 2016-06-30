@@ -64,13 +64,9 @@ Se você deseja executar o programa a partir do código-fonte e/ou colaborar com
 	```
 	gem install ocra
 	```
-5. Execute `verbose.bat` ou `no_console.bat` para executar o programa, passando o idioma como parâmetro. Ex.:
-
-	```
-	verbose pt-BR
-	```
+5. Execute `verbose.bat` ou `no_console.bat` para executar o programa.
 6. Se você adicionou/mudou arquivos de idiomas, verifique se estão corretos usando `check_lang.bat`, passando os idiomas como parâmetros (o padrão é verificar todos). Se houver problemas, o script mostrará quais são, se não ele mostrará a mensagem `Language definitions OK`.
-7. Para gerar um executável, execute `build_exe.bat`, passando o idioma como parâmetro.
+7. Para gerar um executável, execute `build_exe.bat`.
 
 ### Bug na gem `qtbindings`
 
