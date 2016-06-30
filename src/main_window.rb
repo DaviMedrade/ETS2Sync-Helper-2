@@ -52,6 +52,10 @@ class MainWindow < Qt::Widget
 			mnu_language.add_action(action)
 		end
 
+		act_about = Qt::Action.new(MSG[:about_button], self)
+		@menu_bar.add_action(act_about)
+		connect(act_about, SIGNAL("triggered()"), self, SLOT("show_about()"))
+
 		vbox_main = Qt::VBoxLayout.new(self)
 		vbox_main.menu_bar = @menu_bar
 
@@ -80,9 +84,6 @@ class MainWindow < Qt::Widget
 		vbox_main.add_widget(sync_widget, 1, Qt::AlignTop)
 
 		hbox_close = Qt::HBoxLayout.new
-		btn_about = Qt::PushButton.new(MSG[:about_button], self)
-		connect(btn_about, SIGNAL("clicked()"), self, SLOT("show_about()"))
-		hbox_close.add_widget(btn_about)
 		v = new_version_available?
 		if v
 			if v == true
