@@ -48,6 +48,7 @@ class MainWindow < Qt::Widget
 			action.checkable = true
 			action.checked = (lang == current_lang)
 			action.action_group = agr_langs
+			action.icon = Qt::Icon.new("res/lang/#{lang}.png")
 			connect(action, SIGNAL("triggered()"), self, SLOT("change_language()"))
 			mnu_language.add_action(action)
 		end
