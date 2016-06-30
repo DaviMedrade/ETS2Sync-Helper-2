@@ -47,6 +47,9 @@ class ProfileSelector < Qt::GroupBox
 		end
 		profiles = ets2.profiles
 		prev_new_idx = 0
+		while @cbo.count > profiles.length
+			@cbo.removeItem(@cbo.count - 1)
+		end
 		cbo_count = @cbo.count
 		profiles.reverse_each.with_index do |profile, idx|
 			data = profile.dir.to_s

@@ -51,6 +51,9 @@ class SaveSelector < Qt::GroupBox
 			saves = []
 		end
 		prev_new_idx = 0
+		while @cbo.count > saves.length
+			@cbo.removeItem(@cbo.count - 1)
+		end
 		cbo_count = @cbo.count
 		saves.reverse_each.with_index do |save, idx|
 			data = save.dir.to_s
