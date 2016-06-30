@@ -252,6 +252,14 @@ class MainWindow < Qt::Widget
 		@syncing = bool
 		@btn_close.enabled = !bool
 		@menu_bar.enabled = !bool
+		if bool
+			@tmr_ui.stop
+			stop_monitor
+		else
+			@tmr_ui.start(1000)
+			emit config_dir_changed
+			start_monitor
+		end
 		emit sync_changed
 	end
 
