@@ -26,7 +26,6 @@ begin
 		WEBSITE_BASE_APP_URL = "#{WEBSITE_BASE_URL}/app#{"-test" unless ENV["OCRA_EXECUTABLE"]}/"
 
 		def self.restart!
-			sleep(0.5) # let the process finish what it must
 			if ENV["OCRA_EXECUTABLE"]
 				spawn(ENV["OCRA_EXECUTABLE"])
 			else
