@@ -122,7 +122,7 @@ class MainWindow < Qt::Widget
 	end
 
 	def update_ui_timer
-		if @last_monitor_change_time && (Process.clock_gettime(Process::CLOCK_MONOTONIC) - @last_monitor_change_time) > 1.0
+		if @last_monitor_change_time && (Process.clock_gettime(Process::CLOCK_MONOTONIC) - @last_monitor_change_time) > 0.5
 			@last_monitor_change_time = nil
 			@ets2 = ETS2.new(ETS2SyncHelper.settings[:ets2_dir])
 			emit config_dir_changed
