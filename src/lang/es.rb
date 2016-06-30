@@ -1,4 +1,4 @@
-MSGS[:es] = {
+ETS2SyncHelper::MSGS[:es] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Traducción al español por <a href='https://www.facebook.com/AnjodaNoiteAna'>Ana Pereira</a>.",
 	about_button: "Sobre…",

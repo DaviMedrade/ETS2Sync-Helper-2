@@ -7,7 +7,7 @@ ETS2SyncHelper::MSGS[:en] = {
 	about_api: "Job list provided by <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — provided by <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
 	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — provided by <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
-	about_icons: "Flag icons of countries provided by <a href='http://www.famfamfam.com/'>Mark James</a>.",
+	about_icons: "Country flag icons provided by <a href='http://www.famfamfam.com/'>Mark James</a>.",
 	about_website: "Website: %s",
 	check_again: "Check again",
 	checking: "Checking for new versions…",
