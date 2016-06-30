@@ -28,7 +28,6 @@ ETS2SyncHelper::MSGS[:es] = {
 	this_language: "Español", # The name of this language, in the language itself
 	about_to_restart: "El %s se reiniciará.",
 	config_dir: "Directorio de configuración del ETS2",
-	reload: "Recargar",
 	restore: "Restaurar por defecto…",
 	choose: "Buscar…",
 	status_ok: "OK",
