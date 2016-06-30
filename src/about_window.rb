@@ -127,6 +127,8 @@ class AboutWindow < Qt::Dialog
 						false
 					when "outdated"
 						true
+					when "bugfix"
+						:bugfix
 					else
 						data
 					end
@@ -148,7 +150,7 @@ class AboutWindow < Qt::Dialog
 				@lbl_check_icon.visible = false
 				if @has_new_version == false
 					@lbl_check_status.success MSG[:up_to_date]
-				elsif @has_new_version == true
+				elsif @has_new_version == true || @has_new_version == :bugfix
 					@lbl_check_status.failure(MSG[:new_version_available])
 					msgbox = Qt::MessageBox.new
 					msgbox.standard_buttons = Qt::MessageBox::Yes | Qt::MessageBox::No
