@@ -82,6 +82,11 @@ class AboutWindow < Qt::Dialog
 		lbl_qt.open_external_links = true
 		vbox_info.add_widget(lbl_qt)
 
+		lbl_icons = Qt::Label.new(MSG[:about_icons], self)
+		lbl_icons.text_interaction_flags = Qt::TextBrowserInteraction
+		lbl_icons.open_external_links = true
+		vbox_info.add_widget(lbl_icons)
+
 		hbox_main.add_layout(vbox_info)
 
 		vbox_main.add_layout(hbox_main)
