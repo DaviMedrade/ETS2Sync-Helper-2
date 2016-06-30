@@ -23,6 +23,7 @@ class ProfileSelector < Qt::GroupBox
 
 	def config_dir_changed
 		update_status
+		index_changed(@cbo.current_index)
 	end
 
 	def sync_changed
