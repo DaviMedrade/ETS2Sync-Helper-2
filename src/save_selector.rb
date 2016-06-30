@@ -34,33 +34,34 @@ class SaveSelector < Qt::GroupBox
 	end
 
 	def index_changed(new_index)
-		val = @cbo.item_data(@cbo.current_index).value
+		val = @cbo.item_data(@cbo.current_index).value.first
 		val = val.force_encoding("UTF-8").encode("filesystem") if val
 		emit changed(val)
 	end
 
 	def update_status
-		item_data = @cbo.item_data(@cbo.current_index).value
 		if profile
 			saves = profile.saves
 			saves.reject!(&:autosave?)
 		else
 			saves = []
 		end
-		has_new_save = @cbo.count != saves.length
 		while @cbo.count > saves.length
 			@cbo.removeItem(@cbo.count - 1)
 		end
-		cbo_count = @cbo.count
-		saves.reverse_each.with_index do |save, idx|
-			data = save.dir.to_s
-			if idx >= cbo_count
-				@cbo.add_item(save.display_name, Qt::Variant.new(data))
-			elsif @cbo.item_data(idx).value != data
-				@cbo.set_item_data(idx, Qt::Variant.new(data))
-				@cbo.set_item_text(idx, save.display_name)
+		has_new_save = false
+		saves.each.with_index do |save, idx|
+			cbo_idx = @cbo.count - 1 - idx
+			data = [save.dir.to_s, save.saved_at.to_i.to_s]
+			if cbo_idx < 0
+				has_new_save = true
+				@cbo.insert_item(0, save.display_name, Qt::Variant.new(data))
+			elsif @cbo.item_data(cbo_idx).value != data
+				has_new_save = true
+				@cbo.set_item_data(cbo_idx, Qt::Variant.new(data))
+				@cbo.set_item_text(cbo_idx, save.display_name)
 			else
-				@cbo.set_item_text(idx, save.display_name)
+				@cbo.set_item_text(cbo_idx, save.display_name)
 			end
 		end
 		@cbo.current_index = 0 if has_new_save && saves.length > 0
