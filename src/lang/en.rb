@@ -1,4 +1,4 @@
-MSGS[:en] = {
+ETS2SyncHelper::MSGS[:en] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "English translation by <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_button: "About…",
@@ -7,6 +7,7 @@ MSGS[:en] = {
 	about_api: "Job list provided by <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — provided by <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
 	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — provided by <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
+	about_icons: "Language icons provided by <a href='http://www.famfamfam.com/'>Mark James</a>.",
 	about_website: "Website: %s",
 	check_again: "Check again",
 	checking: "Checking for new versions…",
@@ -24,8 +25,10 @@ MSGS[:en] = {
 	new_version_prompt: "A newer version is available. Do you want to open the website?",
 	up_to_date: "Your version is up to date.",
 	open_website_prompt: "Open website.",
+	language_menu: "Language",
+	this_language: "English", # The name of this language, in the language itself
+	about_to_restart: "%s will be restarted.",
 	config_dir: "ETS2 Settings Folder",
-	reload: "Reload",
 	restore: "Restore Default…",
 	choose: "Choose…",
 	status_ok: "OK",
@@ -39,7 +42,7 @@ MSGS[:en] = {
 	fix_save_format: "Fix…",
 	fix_save_format_prompt: "This won't actually work if the game is running.",
 	save_format_change_failed: "The Save Format change failed.",
-	save_format_change_failed_prompt: "Please set “g_save_format” in file “config.cfg” in the ETS Settings Folder to “3” and click the “Reload” button.",
+	save_format_change_failed_prompt: "Please set “g_save_format” in file “config.cfg” in the ETS Settings Folder to “0”.",
 	select_profile: "Select Profile",
 	no_profiles: "No profiles found.",
 	one_profile: "1 profile.",

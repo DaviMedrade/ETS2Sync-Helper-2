@@ -28,7 +28,7 @@ class ETS2
 
 	def initialize(config_dir = ETS2.default_config_dir)
 		if config_dir.directory?
-			@config_dir = config_dir.realpath
+			@config_dir = Pathname(config_dir.realpath.to_win)
 			@config_file = (@config_dir + "config.cfg")
 			@valid = @config_file.file? && (@config_dir + "profiles").directory?
 			process_save_format if @valid

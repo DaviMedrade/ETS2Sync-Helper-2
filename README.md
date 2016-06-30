@@ -6,11 +6,9 @@
 Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para facilitar a organização de comboios no Multiplayer.
 
 ## Download
-Português do Brasil:
-http://files.dsantosdev.com/ets2sync_helper_pt-BR.zip
+Idiomas: alemão, espanhol, inglês, português do Brasil e português de Portugal.
 
-Inglês:
-http://files.dsantosdev.com/ets2sync_helper_en.zip
+http://files.dsantosdev.com/ets2sync_helper.zip
 
 ## Vídeo Tutorial
 Áudio em português, legendas em inglês (CC).
@@ -54,23 +52,19 @@ Se você deseja executar o programa a partir do código-fonte e/ou colaborar com
 
 1. Clone o repositório.
 2. Instale o Ruby 2.2.x (http://rubyinstaller.org/).
-3. Instale as gems `qtbindings` e `parser`:
+3. Instale as gems `qtbindings`, `parser` e `wdm`:
 
 	```
-	gem install qtbindings parser
+	gem install qtbindings parser wdm
 	```
 4. Se você deseja empacotar um executável, instale a gem `ocra`:
 
 	```
 	gem install ocra
 	```
-5. Execute `verbose.bat` ou `no_console.bat` para executar o programa, passando o idioma como parâmetro. Ex.:
-
-	```
-	verbose pt-BR
-	```
+5. Execute `verbose.bat` ou `no_console.bat` para executar o programa.
 6. Se você adicionou/mudou arquivos de idiomas, verifique se estão corretos usando `check_lang.bat`, passando os idiomas como parâmetros (o padrão é verificar todos). Se houver problemas, o script mostrará quais são, se não ele mostrará a mensagem `Language definitions OK`.
-7. Para gerar um executável, execute `build_exe.bat`, passando o idioma como parâmetro.
+7. Para gerar um executável, execute `build_exe.bat`.
 
 ### Bug na gem `qtbindings`
 

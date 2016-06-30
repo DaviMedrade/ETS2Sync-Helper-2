@@ -1,4 +1,4 @@
-MSGS[:"pt-BR"] = {
+ETS2SyncHelper::MSGS[:pt] = {
 	# in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
 	about_translator: "Traduzido para Português do Brasil por <a href='https://github.com/davidsantos-br'>David Santos</a>.",
 	about_button: "Sobre…",
@@ -7,6 +7,7 @@ MSGS[:"pt-BR"] = {
 	about_api: "Lista de cargas fornecida por <a href='http://www.ets2sync.com/'>ETS2 Job Sync</a>.",
 	about_ruby: "<a href='http://ruby-lang.org/'>Ruby #{RUBY_VERSION}</a> — fornecido por <a href='http://rubyinstaller.org/'>RubyInstaller</a>.",
 	about_qt: "<a href='https://www.qt.io/'>Qt %s</a> — fornecido por <a href='https://rubygems.org/gems/qtbindings'>qtbindings</a>.", # %s is the Qt version
+	about_icons: "Ícones de idiomas fornecidos por <a href='http://www.famfamfam.com/'>Mark James</a>.",
 	about_website: "Site: %s",
 	check_again: "Verificar Novamente",
 	checking: "Procurando novas versões…",
@@ -24,8 +25,10 @@ MSGS[:"pt-BR"] = {
 	new_version_prompt: "Uma nova versão está disponível. Deseja abrir o site?",
 	up_to_date: "Sua versão está atualizada.",
 	open_website_prompt: "Abrir o site.",
+	language_menu: "Idioma",
+	this_language: "Português do Brasil", # The name of this language, in the language itself
+	about_to_restart: "O %s será reiniciado.",
 	config_dir: "Pasta de Configuração do ETS2",
-	reload: "Atualizar",
 	restore: "Restaurar Padrão…",
 	choose: "Procurar…",
 	status_ok: "OK",
@@ -39,7 +42,7 @@ MSGS[:"pt-BR"] = {
 	fix_save_format: "Corrigir…",
 	fix_save_format_prompt: "Isto não vai funcionar se o jogo estiver aberto.",
 	save_format_change_failed: "A correção do Formato do Save falhou.",
-	save_format_change_failed_prompt: "Por favor, modifique o valor do “g_save_format” no arquivo “config.cfg” na pasta de configuração do ETS2 para “3” e clique no botão “Atualizar”.",
+	save_format_change_failed_prompt: "Por favor, modifique o valor do “g_save_format” no arquivo “config.cfg” na pasta de configuração do ETS2 para “0”.",
 	select_profile: "Selecione o Perfil",
 	no_profiles: "Nenhum perfil encontrado.",
 	one_profile: "1 perfil.",
