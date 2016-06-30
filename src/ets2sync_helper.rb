@@ -1,6 +1,7 @@
 begin
 	require "pathname"
 	require "net/http"
+	gem "wdm"
 	require "wdm"
 	APP_NAME = "ETS2Sync Helper"
 
