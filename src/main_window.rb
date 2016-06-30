@@ -245,6 +245,7 @@ class MainWindow < Qt::Widget
 	def syncing(bool)
 		@syncing = bool
 		@btn_close.enabled = !bool
+		@menu_bar.enabled = !bool
 		emit sync_changed
 	end
 
