@@ -6,7 +6,7 @@
 Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para facilitar a organização de comboios no Multiplayer.
 
 ## Download
-Idiomas: alemão, espanhol, inglês, português do Brasil e português de Portugal.
+Idiomas: Português do Brasil, Português de Portugal, Inglês, Alemão, Espanhol, Francês e Sueco.
 
 http://files.dsantosdev.com/ets2sync_helper.zip
 
