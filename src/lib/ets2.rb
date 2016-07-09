@@ -128,7 +128,7 @@ class ETS2
 				@raw = SII::File.read(file)
 				m = @raw.match(/^\s*profile_name:\s+(?:\"(.*)\"|(.*))/)
 				@name = (m[1] || m[2]).chomp if m
-				@name = "[sem nome]" if @name.empty?
+				@name = "[sem nome]" if @name.nil? || @name.empty?
 				m = @raw.match(/^\s*save_time:\s+(?:\"(.*)\"|(.*))/)
 				@saved_at = Time.at((m[1] || m[2]).chomp.to_i) if m
 			end
@@ -188,7 +188,7 @@ class ETS2
 				@raw = SII::File.read(file)
 				m = @raw.match(/^\s*name:\s+(?:\"(.*)\"|(.*))/)
 				@name = (m[1] || m[2]).chomp if m
-				@name = MSG[:no_name] if @name.empty?
+				@name = MSG[:no_name] if @name.nil? || @name.empty?
 				m = @raw.match(/^\s*file_time:\s+(?:\"(.*)\"|(.*))/)
 				@saved_at = Time.at((m[1] || m[2]).chomp.to_i) if m
 				@save_file = (@dir + "game.sii").file?
