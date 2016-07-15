@@ -1,4 +1,3 @@
-
 ETS2SyncHelper::MSGS[:tr] = {
     # in 'about_translator', put your own name and a URL of your choosing (though I'll have to approve it)
     about_translator: "Türkçe çeviri <a href='https://about.me/MT2Atakan'>Atakan Kızılbey</a> tarafından yapılmıştır.",
