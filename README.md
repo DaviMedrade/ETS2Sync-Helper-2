@@ -1,5 +1,5 @@
 # ETS2Sync Helper
-[VERSÃO EM PORTUGUÊS](README.md)
+[VERSÃO EM PORTUGUÊS](README-pt.md)
 
 [LICENSE](LICENSE.md)
 
