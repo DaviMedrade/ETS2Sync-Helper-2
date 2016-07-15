@@ -6,9 +6,17 @@
 This app synchronizes the job list on Euro Truck Simulator 2, in order to make it easier to organize a convoy on Multiplayer.
 
 ## Download
-Languages: Brazilian Portuguese, European Portuguese, English, French, German, Spanish, Swedish, and Turkish.
-
 http://files.dsantosdev.com/ets2sync_helper.zip
+
+## Languages
+![pt](/src/res/lang/pt.png?raw=true) Brazilian Portuguese  
+![en](/src/res/lang/en.png?raw=true) English  
+![pt-PT](/src/res/lang/pt-PT.png?raw=true) European Portuguese  
+![fr](/src/res/lang/fr.png?raw=true) French  
+![de](/src/res/lang/de.png?raw=true) German  
+![es](/src/res/lang/es.png?raw=true) Spanish  
+![se](/src/res/lang/se.png?raw=true) Swedish  
+![tr](/src/res/lang/tr.png?raw=true) Turkish  
 
 ## Video Tutorial
 Portuguese audio, English subtitles (CC).
