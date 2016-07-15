@@ -1,85 +1,85 @@
 # ETS2Sync Helper
-[ENGLISH VERSION](README-en.md)
+[VERSÃO EM PORTUGUÊS](README.md)
 
 [LICENSE](LICENSE.md)
 
-Este programa faz a sincronização de cargas no Euro Truck Simulator 2, para facilitar a organização de comboios no Multiplayer.
+This app synchronizes the job list on Euro Truck Simulator 2, in order to make it easier to organize a convoy on Multiplayer.
 
 ## Download
 http://files.dsantosdev.com/ets2sync_helper.zip
 
-## Idiomas
-![de](/src/res/lang/de.png?raw=true) Alemão  
-![es](/src/res/lang/es.png?raw=true) Espanhol  
-![fr](/src/res/lang/fr.png?raw=true) Francês  
-![en](/src/res/lang/en.png?raw=true) Inglês  
-![pt-PT](/src/res/lang/pt-PT.png?raw=true) Português de Portugal  
-![pt](/src/res/lang/pt.png?raw=true) Português do Brasil  
-![se](/src/res/lang/se.png?raw=true) Sueco  
-![tr](/src/res/lang/tr.png?raw=true) Turco  
+## Languages
+![pt](/src/res/lang/pt.png?raw=true) Brazilian Portuguese  
+![en](/src/res/lang/en.png?raw=true) English  
+![pt-PT](/src/res/lang/pt-PT.png?raw=true) European Portuguese  
+![fr](/src/res/lang/fr.png?raw=true) French  
+![de](/src/res/lang/de.png?raw=true) German  
+![es](/src/res/lang/es.png?raw=true) Spanish  
+![se](/src/res/lang/se.png?raw=true) Swedish  
+![tr](/src/res/lang/tr.png?raw=true) Turkish  
 
-## Vídeo Tutorial
-Áudio em português, legendas em inglês (CC).
+## Video Tutorial
+Portuguese audio, English subtitles (CC).
 
 https://www.youtube.com/watch?v=WKLHSnt_5H4
 
-## Como Sincronizar
-1. No jogo, crie um save (vá em “Salvar e Carregar” → “Salvar Jogo”, digite um nome, clique em “Salvar”).
-2. Pressione Alt+Tab para minimizar o jogo.
-3. Abra o programa (ou clique em “Atualizar” se o programa já estava aberto).
-4. Se aparecer alguma mensagem em vermelho:
-	* “Formato do Save incorreto”:
-		1. Saia do jogo. Esta etapa não funcionará se o jogo estiver em execução.
-		2. No programa, clique no botão “Corrigir”.
-		3. Confirme as mensagens.
-		4. Entre no jogo novamente.
-		5. Volte para o passo 1.
-	* “Nenhum save encontrado”:
-		1. Clique em “Atualizar”.
-		2. Certifique-se de que o perfil correto está selecionado.
-		3. Volte para o passo 1.
-5. Se não há nenhuma mensagem em vermelho, clique em “Sincronizar”.
-6. Aguarde até que apareça a mensagem “Sincronização concluída”.
-7. Volte para o jogo. Carregue o save que foi criado no passo 1 (vá em “Salvar e Carregar” → “Carregar Jogo”).
-8. No “Mercado de Fretes”, verifique se nas cargas o campo “A oferta expira em” é o mesmo para todas (e que é cerca de 500 horas). Se for, a sincronização foi feita com sucesso.
+## How To Sync
+1. In the game, create a save (“Save & Load” → “Save Game”, type a name, click “Save”).
+2. Press Alt+Tab to minimize the game.
+3. Open the app (or click “Reload” if it was already open).
+4. If there are any messages in red:
+	* “Wrong Save Format”:
+		1. Exit the game. This step won't work if the game is running.
+		2. In the app, click “Fix”.
+		3. Confirm the messages.
+		4. Open the game again.
+		5. Go back to step 1.
+	* “No saves found”:
+		1. Click “Reload”.
+		2. Make sure that the correct profile is selected.
+		3. Go back to step 1.
+5. If there are no messages in red, click “Sync”.
+6. Wait until the message “Sync complete” appears.
+7. Go back to the game. Load the save that was created on step 1 (“Save & Load” → “Load Game”).
+8. In the “Freight Market”, check that the field “Offer expires in” has the same value for all jobs (and that it's about 500 hours). If it is, the sync was successful.
 
-	Se as cargas não estão todas com o mesmo tempo para expirar, isso significa que a sincronização falhou. Normalmente isso acontece porque a pessoa esqueceu de carregar o save depois de sincronizar, ou que o save que foi carregado não é o que foi sincronizado (confira o perfil e o save selecionados no programa).
+	If the jobs don't all have the same expiration time, that means that the sync failed. Usually when that happens it's because the person forgot to load the save after syncing, or that the save that was loaded is not the one that was synced (check the profile and the save that are selected in the app).
 
-## Formato do Save
-Em versões anteriores, assim como quando sincronizando pelo site, era necessário manter o formato do save em 3 (ou 2). A partir da versão 3.0.0, o programa consegue ler um arquivo de save binário (i.e. um save criado com `g_save_format "0"`). Por esse motivo, não é necessário mudar o formato do save se já estiver em zero. Na verdade, se o formato do save estiver em 2 ou 3, podem ocorrer lags quando o jogo cria autosaves, então manter o formato do save em zero é recomendado.
+## Save Format
+In previous versions, as well as when syncing via the website, it was necessary to have the save format set to 3 (or 2). Starting with version 3.0.0, the app can read a binary save file (i.e. a save created with `g_save_format "0"`). Therefore, it is not necessary to change the save format if it's already zero. Actually, if the save format is 2 or 3, the game may lag when creating autosaves, so keeping the save format set to zero is recommended.
 
-## Bugs/Problemas
-Se você encontrar um problema no programa, informe no link abaixo:
+## Bugs/Issues
+If you find a problem in the app, report it on the link below:
 
 https://github.com/davidsantos-br/ETS2Sync-Helper-2/issues
 
-## Desenvolvimento
-**Nota:** Esta etapa não é necessária para sincronizar as cargas.
+## Development
+**Note:** This step is not necessary to sync the jobs.
 
-Se você deseja executar o programa a partir do código-fonte e/ou colaborar com o desenvolvimento:
+If you wish to run the app from its source code and/or help with its development:
 
-1. Clone o repositório.
-2. Instale o Ruby 2.2.x (http://rubyinstaller.org/).
-3. Instale as gems `qtbindings`, `parser` e `wdm`:
+1. Clone the repo.
+2. Install Ruby 2.2.x (http://rubyinstaller.org/).
+3. Install the gems `qtbindings`, `parser`, and `wdm`:
 
 	```
 	gem install qtbindings parser wdm
 	```
-4. Se você deseja empacotar um executável, instale a gem `ocra`:
+4. If you wish to build a binary, install the gem `ocra`:
 
 	```
 	gem install ocra
 	```
-5. Execute `verbose.bat` ou `no_console.bat` para executar o programa.
-6. Se você adicionou/mudou arquivos de idiomas, verifique se estão corretos usando `check_lang.bat`, passando os idiomas como parâmetros (o padrão é verificar todos). Se houver problemas, o script mostrará quais são, se não ele mostrará a mensagem `Language definitions OK`.
-7. Para gerar um executável, execute `build_exe.bat`.
+5. Run the program with `verbose.bat` or `no_console.bat`.
+6. If you added/changed language files, check if they are correct with `check_lang.bat`, passing the languages as a parameters (default: all languages). If there are problems, the script will show them, otherwise it will show the message `Language definitions OK`.
+7. To generate a binary, run `build_exe.bat`.
 
-### Bug na gem `qtbindings`
+### Gem `qtbindings` bug
 
-Um bug na gem `qtbindings` relacionado a encodings faz com que o programa não funcione a partir do executável criado pelo `ocra` se o nome de usuário no Windows da pessoa executando o programa tiver acentos ou outros caracteres especiais. Eu constatei que as seguintes alterações corrigem o problema:
+A bug in the gem `qtbindings` related to encodings prevents the program from running from a binary created by `ocra` if the Windows username of the person running the program has accents or other special characters. I found out that the following changes fix the problem:
 
 #### Gem `qtbindings`
-No arquivo `lib/Qt4.rb`, substituir as linhas 12-17 pelas linhas abaixo:
+In the file `lib/Qt4.rb`, replace lines 12-17 with the lines below:
 
 ```ruby
 ruby_version = RUBY_VERSION.split('.')[0..1].join('.').encode("UTF-8")
@@ -90,8 +90,8 @@ $: << File.join(File.dirname(__FILE__).encode("UTF-8"), "../lib/#{ruby_version}"
 require "#{ruby_version}/qtruby4"
 ```
 
-#### Gem `qtbindings-qt` (dependência de `qtbindings`):
-No arquivo `qtlib/qtbindings-qt.rb`, substituir a linha 8 pela linha abaixo:
+#### Gem `qtbindings-qt` (`qtbindings` dependency):
+In the file `qtlib/qtbindings-qt.rb`, replace line 8 with the one below:
 
 ```ruby
 ENV['PATH'] = (File.join(File.dirname(__FILE__).encode("UTF-8"), '../qtbin') + ';' + File.join(File.dirname(__FILE__).encode("UTF-8"), '../qtbin/plugins') + ';' + ENV['PATH'].encode("UTF-8")).encode(ENV['PATH'].encoding)
