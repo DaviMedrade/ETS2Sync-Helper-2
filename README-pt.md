@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 ## Como Sincronizar
 1. No jogo, crie um save (vá em “Salvar e Carregar” → “Salvar Jogo”, digite um nome, clique em “Salvar”).
 2. Pressione Alt+Tab para minimizar o jogo.
-3. Abra o programa (ou clique em “Atualizar” se o programa já estava aberto).
+3. Abra o programa caso não tenha aberto ainda.
 4. Se aparecer alguma mensagem em vermelho:
 	* “Formato do Save incorreto”:
 		1. Saia do jogo. Esta etapa não funcionará se o jogo estiver em execução.
@@ -35,9 +35,8 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 		4. Entre no jogo novamente.
 		5. Volte para o passo 1.
 	* “Nenhum save encontrado”:
-		1. Clique em “Atualizar”.
-		2. Certifique-se de que o perfil correto está selecionado.
-		3. Volte para o passo 1.
+		1. Certifique-se de que o perfil correto está selecionado.
+		2. Volte para o passo 1.
 5. Se não há nenhuma mensagem em vermelho, clique em “Sincronizar”.
 6. Aguarde até que apareça a mensagem “Sincronização concluída”.
 7. Volte para o jogo. Carregue o save que foi criado no passo 1 (vá em “Salvar e Carregar” → “Carregar Jogo”).

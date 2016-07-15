@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 ## How To Sync
 1. In the game, create a save (“Save & Load” → “Save Game”, type a name, click “Save”).
 2. Press Alt+Tab to minimize the game.
-3. Open the app (or click “Reload” if it was already open).
+3. Open the app if you didn't already.
 4. If there are any messages in red:
 	* “Wrong Save Format”:
 		1. Exit the game. This step won't work if the game is running.
@@ -35,9 +35,8 @@ https://www.youtube.com/watch?v=WKLHSnt_5H4
 		4. Open the game again.
 		5. Go back to step 1.
 	* “No saves found”:
-		1. Click “Reload”.
-		2. Make sure that the correct profile is selected.
-		3. Go back to step 1.
+		1. Make sure that the correct profile is selected.
+		2. Go back to step 1.
 5. If there are no messages in red, click “Sync”.
 6. Wait until the message “Sync complete” appears.
 7. Go back to the game. Load the save that was created on step 1 (“Save & Load” → “Load Game”).
